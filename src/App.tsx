@@ -12,6 +12,7 @@ function App() {
 
   useEffect(() => {
     search('people')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function search(searchQuery : string) {
