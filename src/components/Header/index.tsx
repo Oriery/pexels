@@ -1,7 +1,11 @@
 import logo from './logo.svg';
 import SearchBar from '../SearchBar';
 
-function Header() {
+function Header({onSearch} : {onSearch: (searchQuery: string) => void}) {
+  function search (searchQuery : string) {
+    onSearch(searchQuery)
+  }
+
   return (
     <header className='App-header min-h-[500px] flex flex-col items-center bg-gradient-to-t from-gray-700 to-gray-400 text-white'>
       <nav className='flex flex-row space-x-4 justify-between h-[80px] p-2 px-6 w-full max-w-[1280px]'>
@@ -19,7 +23,7 @@ function Header() {
       <div className='flex flex-col items-center justify-center h-[420px] max-w-[600px]'>
         <h2 className='text-4xl font-bold text-start'>Лучшие бесплатные стоковые фото, изображения без роялти и видео от талантливых авторов.</h2>
         <div className='mt-6 w-full'>
-          <SearchBar />
+          <SearchBar onSearch={search}/>
         </div>
         <div className='flex flex-row space-x-2 mt-6 w-full'>
           <p className='text-gray-300'>Тенденции:</p>
