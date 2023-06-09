@@ -1,14 +1,21 @@
 import Picture from "../Picture";
 import { Photo } from 'pexels';
 
+const minHeightsOfMocks = Array.from({ length: 11 }, () => Math.round(150 + Math.random() * 250));
+console.log(minHeightsOfMocks);
+
 function PicturesList({images} : { images: Photo[] }) {
   const COLUMNS = 3;
   
-  const imagesElems = images.map((image) => {
+  const imagesElems = images.length ? images.map((image, index) => {
     return (
-      <Picture image={image} key={image.id} numberOfColumns={COLUMNS} />
+      <Picture image={image} key={image.id} numberOfColumns={COLUMNS} mockMinHeight={minHeightsOfMocks[index % minHeightsOfMocks.length]} />
     )
-  })
+  }) : Array.from({ length: 9 }, (_, index) => {
+    return (
+      <Picture key={-index} isMock={true} mockMinHeight={minHeightsOfMocks[index % minHeightsOfMocks.length]}/>
+    )
+  });
 
   const columnsOfImages = imagesElems.reduce((acc : JSX.Element[][], image, index) => {
     const column = index % COLUMNS;
