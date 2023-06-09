@@ -2,30 +2,23 @@ import React, { useEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
 import PicturesList from './components/PicturesList';
-import { createClient, PhotosWithTotalResults } from 'pexels';
+import usePicturesManager from './managers/picturesManager';
 
 function App() {
-  const REACT_APP_PEXELS_API_KEY = process.env.REACT_APP_PEXELS_API_KEY
-  const client = createClient(REACT_APP_PEXELS_API_KEY!);
-
-  let [images, setImages] = React.useState([] as any[])
+  
+  let picturesManager = usePicturesManager('people')
 
   useEffect(() => {
-    search('people')
+    picturesManager.search('people')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  function search(searchQuery : string) {
-    client.photos.search({ query: searchQuery, per_page: 40 }).then(photos => {
-      console.log(photos);
-      setImages((photos as PhotosWithTotalResults).photos)
-    });
-  }
+  
 
   return (
     <div className="App">
-      <Header onSearch={search}/>
-      <PicturesList images={images}/>
+      <Header onSearch={picturesManager.search}/>
+      <PicturesList images={picturesManager.images}/>
     </div>
   );
 }

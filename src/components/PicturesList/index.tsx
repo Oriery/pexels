@@ -1,6 +1,9 @@
 import Picture from "../Picture";
+import { Photo } from 'pexels';
 
-function PicturesList({images} : {images: any[]}) {
+function PicturesList({images} : {
+    images: Photo[]
+  }) {
   const imagesElems = images.map((image) => {
     return (
       <Picture image={image} key={image.id} />
