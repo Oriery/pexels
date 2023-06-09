@@ -3,6 +3,8 @@ import { createClient, PhotosWithTotalResults } from 'pexels';
 const REACT_APP_PEXELS_API_KEY = process.env.REACT_APP_PEXELS_API_KEY
 const client = createClient(REACT_APP_PEXELS_API_KEY!);
 
+const PER_PAGE = 10;
+
 class SearchManager {
   private lastPage: number;
   private searchQuery: string;
@@ -31,10 +33,10 @@ class SearchManager {
 
     let pageToLoad = this.lastPage + 1;
     console.log('SearchManager search', query, 'page:', pageToLoad)
-    let res = await client.photos.search({ query: this.searchQuery, per_page: 20, page: pageToLoad });
+    let res = await client.photos.search({ query: this.searchQuery, per_page: PER_PAGE, page: pageToLoad });
     let foundImages = (res as PhotosWithTotalResults).photos;
     this.lastPage = pageToLoad;
-    this.endReached = foundImages.length < 20;
+    this.endReached = foundImages.length < PER_PAGE;
 
     return foundImages;
   }

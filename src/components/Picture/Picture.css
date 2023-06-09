@@ -1,0 +1,45 @@
+.blurred-bg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(10px) saturate(20%) brightness(50%);
+}
+
+.blurred-bg.loaded {
+  filter: none;
+}
+
+.blurred-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: pulse 2.5s infinite;
+  background-color: black;
+}
+
+.blurred-bg.loaded::before {
+  animation: none;
+  content: none;
+}
+
+.blurred-bg img {
+  opacity: 0;
+  transition: opacity 250ms ease-in-out;
+}
+
+.blurred-bg.loaded img {
+  opacity: 1;
+}
+
+
+@keyframes pulse {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
