@@ -12,12 +12,13 @@ function PicturesList({images} : {
 
   return (
     <div className="m-6">
-      <h1 className="text-2xl">Бесплатные стоковые фото</h1>
-      <div className="flex flex-row justify-between h-10 w-full">
-        <p className="whitespace-nowrap h-full flex items-center text-xs">All photos are provided by</p>
-        <a href="https://www.pexels.com" className="flex flex-row p-2 grow-0">
-          <img src="https://images.pexels.com/lib/api/pexels.png" alt="Pexels.com logo"/>
-        </a>
+      <div className="flex flex-row h-10 w-full justify-between">
+        <h1 className="text-2xl h-full flex items-center">Бесплатные стоковые фото</h1>
+        <p className="whitespace-nowrap h-full flex items-center text-xs">All photos are provided by&nbsp;
+          <a href="https://www.pexels.com" className="text-[#07a081]">
+            Pexels
+          </a>
+        </p>
       </div>
       <div className="flex flex-row flex-wrap mt-6">
         {imagesElems}
