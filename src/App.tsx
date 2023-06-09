@@ -9,7 +9,7 @@ function App() {
   let picturesManager = usePicturesManager('people')
 
   useEffect(() => {
-    picturesManager.search('people')
+    picturesManager.searchNextPage('people')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header onSearch={picturesManager.search}/>
+      <Header onSearch={picturesManager.searchNextPage}/>
       <PicturesList images={picturesManager.images}/>
     </div>
   );

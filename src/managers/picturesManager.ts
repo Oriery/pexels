@@ -29,16 +29,15 @@ const usePicturesManager = (initialQuery: string) => {
     prevQuery.current = query;
   };
 
-  const search = (query: string) => {
-    console.log('usePicturesManager search', query);
-    searchManager.current.search(query).then((photos: Photo[]) => {
+  const searchNextPage = (query: string) => {
+    searchManager.current.searchNextPage(query).then((photos: Photo[]) => {
       addImages(photos, query);
     });
   };
 
   return {
     images,
-    search
+    searchNextPage
   };
 };
 

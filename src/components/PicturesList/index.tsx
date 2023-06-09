@@ -2,7 +2,6 @@ import Picture from "../Picture";
 import { Photo } from 'pexels';
 
 const minHeightsOfMocks = Array.from({ length: 11 }, () => Math.round(150 + Math.random() * 250));
-console.log(minHeightsOfMocks);
 
 function PicturesList({images} : { images: Photo[] }) {
   const COLUMNS = 3;
