@@ -1,12 +1,26 @@
 import Picture from "../Picture";
 import { Photo } from 'pexels';
 
-function PicturesList({images} : {
-    images: Photo[]
-  }) {
+function PicturesList({images} : { images: Photo[] }) {
+  const COLUMNS = 3;
+  
   const imagesElems = images.map((image) => {
     return (
-      <Picture image={image} key={image.id} />
+      <Picture image={image} key={image.id} numberOfColumns={COLUMNS} />
+    )
+  })
+
+  const columnsOfImages = imagesElems.reduce((acc : JSX.Element[][], image, index) => {
+    const column = index % COLUMNS;
+    acc[column].push(image);
+    return acc;
+  }, Array.from({ length: COLUMNS }, () => []));
+
+  const columnsOfImagesElems = columnsOfImages.map((column, index) => {
+    return (
+      <div className="flex flex-col gap-8" key={index}>
+        {column}
+      </div>
     )
   })
 
@@ -20,8 +34,8 @@ function PicturesList({images} : {
           </a>
         </p>
       </div>
-      <div className="flex flex-row flex-wrap mt-6">
-        {imagesElems}
+      <div className="grid grid-cols-3 gap-8">
+        {columnsOfImagesElems}
       </div>
     </div>
   );
