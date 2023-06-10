@@ -18,6 +18,7 @@ class SearchManager {
   private searchQuery: string;
   private defaultQuery: string;
   private endReached: boolean;
+  private isSearching: boolean;
 
   constructor(defaultQuery: string) {
     this.defaultQuery = defaultQuery;
@@ -25,6 +26,7 @@ class SearchManager {
     this.lastPage = 0;
     this.searchQuery = this.defaultQuery;
     this.endReached = false;
+    this.isSearching = false;
   }
 
   public searchNextPage = async (query: string | undefined) : Promise<Photo[]> => {
@@ -39,8 +41,14 @@ class SearchManager {
       return [];
     }
 
+    if (this.isSearching) {
+      return [];
+    }
+    this.isSearching = true;
+
     let pageToLoad = this.lastPage + 1;
-    let res = await searchAtPexels({ query: this.searchQuery, per_page: PER_PAGE, page: pageToLoad });
+    let res = await searchAtPexels({ query: this.searchQuery, per_page: PER_PAGE, page: pageToLoad })
+      .finally(() => this.isSearching = false);
     let foundImages = (res as PhotosWithTotalResults).photos;
     this.lastPage = pageToLoad;
     this.endReached = foundImages.length < PER_PAGE;
@@ -56,6 +64,7 @@ class SearchManager {
     this.lastPage = 0;
     this.searchQuery = this.defaultQuery;
     this.endReached = false;
+    this.isSearching = false;
   }
 }
 
