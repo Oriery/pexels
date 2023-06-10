@@ -41,14 +41,14 @@ function PicturesList({images} : { images: Photo[] }) {
 
   const columnsOfImagesElems = columnsOfImages.map((column, index) => {
     return (
-      <div className="flex flex-col gap-8" key={index}>
+      <div className="flex flex-col gap-4 md:gap-8" key={index}>
         {column.images}
       </div>
     )
   })
 
   return (
-    <div className="m-6">
+    <div className="m-4 sm:m-8">
       <div className="flex flex-row h-10 w-full justify-between">
         <h1 className="text-2xl h-full flex items-center">Бесплатные стоковые фото</h1>
         <p className="whitespace-nowrap h-full flex items-center text-xs">All photos are provided by&nbsp;
@@ -57,7 +57,7 @@ function PicturesList({images} : { images: Photo[] }) {
           </a>
         </p>
       </div>
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-3 gap-4 sm:gap-8">
         {columnsOfImagesElems}
       </div>
     </div>
