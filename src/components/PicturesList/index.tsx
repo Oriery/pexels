@@ -1,31 +1,48 @@
 import Picture from "../Picture";
 import { Photo } from 'pexels';
 
-const minHeightsOfMocks = Array.from({ length: 11 }, () => Math.round(150 + Math.random() * 250));
+const minHeightsOfMocks = Array.from({ length: 11 }, () => Math.round(200 + Math.random() * 200));
 
 function PicturesList({images} : { images: Photo[] }) {
   const COLUMNS = 3;
+
+  type ImageWithEl = { el: JSX.Element, picture: Photo | null };
   
-  const imagesElems = images.length ? images.map((image, index) => {
-    return (
-      <Picture image={image} key={image.id} numberOfColumns={COLUMNS} mockMinHeight={minHeightsOfMocks[index % minHeightsOfMocks.length]} />
-    )
-  }) : Array.from({ length: 9 }, (_, index) => {
-    return (
-      <Picture key={-index} isMock={true} mockMinHeight={minHeightsOfMocks[index % minHeightsOfMocks.length]}/>
-    )
+  const imagesElems : ImageWithEl[] = images.length ? images.map((image, index) => {
+    return {
+      el: (
+        <Picture image={image} key={image.id} numberOfColumns={COLUMNS} mockMinHeight={minHeightsOfMocks[index % minHeightsOfMocks.length]} />
+      ), 
+      picture: image
+    };
+  }) : Array.from({ length: 13 }, (_, index) => {
+    return {
+      el: (
+        <Picture key={-index} isMock={true} mockMinHeight={minHeightsOfMocks[index % minHeightsOfMocks.length]}/>
+      ), 
+      picture: null
+    };
   });
 
-  const columnsOfImages = imagesElems.reduce((acc : JSX.Element[][], image, index) => {
-    const column = index % COLUMNS;
-    acc[column].push(image);
+  const columnsOfImages = imagesElems.reduce((acc : {images: JSX.Element[], colHeight: number}[], imageWithEl, index) => {
+    // column with min height
+    const column = acc.reduce((acc, column, index) => {
+      return column.colHeight < acc.colHeight ? { index, colHeight: column.colHeight } : acc;
+    }, { index: 0, colHeight: acc[0].colHeight }).index;
+
+    // col height is rough but good enough approximation of the height of the column in weird units
+    if (imageWithEl.picture) {
+      acc[column].colHeight += imageWithEl.picture.height / imageWithEl.picture.width;
+    }
+
+    acc[column].images.push(imageWithEl.el);
     return acc;
-  }, Array.from({ length: COLUMNS }, () => []));
+  }, Array.from({ length: COLUMNS }, () => ({ images: [], colHeight: 0 })));
 
   const columnsOfImagesElems = columnsOfImages.map((column, index) => {
     return (
       <div className="flex flex-col gap-8" key={index}>
-        {column}
+        {column.images}
       </div>
     )
   })

@@ -40,7 +40,6 @@ class SearchManager {
     }
 
     let pageToLoad = this.lastPage + 1;
-    console.log('SearchManager search', query, 'page:', pageToLoad)
     let res = await searchAtPexels({ query: this.searchQuery, per_page: PER_PAGE, page: pageToLoad });
     let foundImages = (res as PhotosWithTotalResults).photos;
     this.lastPage = pageToLoad;
