@@ -11,13 +11,18 @@ interface PictureProps {
 
 interface PictureState {
   isLoaded: boolean;
+  isSmallImgLoaded: boolean;
 }
 
 class Picture extends Component<PictureProps, PictureState> {
   constructor(props: PictureProps) {
     super(props);
+
+
+
     this.state = {
       isLoaded: false,
+      isSmallImgLoaded: false
     };
   
     if (!!props.image && !!props.isMock) {
@@ -34,14 +39,17 @@ class Picture extends Component<PictureProps, PictureState> {
 
   render() {
     const { image, numberOfColumns } = this.props;
-    const { isLoaded } = this.state;
+    const { isLoaded, isSmallImgLoaded } = this.state;
     const SIZES = [100, 300, 500, 720, 1080, 1600];
 
     return (
       <div className="w-full overflow-hidden">
+        <link rel="preload" href={image ? `${image.src.original}?auto=compress&cs=tinysrgb&w=20` : undefined} as="image" onLoad={() => this.setState({isSmallImgLoaded: true})} />
         <div className={'blurred-bg' + (isLoaded ? ' loaded' : '')} style={{
           backgroundImage: !this.props.isMock ? `url(${image!.src.original}?auto=compress&cs=tinysrgb&w=20)` : undefined,
-          minHeight: isLoaded ? undefined : (this.props.mockMinHeight !== undefined ? this.props.mockMinHeight : Math.round(150 + Math.random() * 250)),
+          minHeight: isLoaded || isSmallImgLoaded ? undefined : (this.props.mockMinHeight !== undefined ? this.props.mockMinHeight : Math.round(150 + Math.random() * 250)),
+          height: isLoaded ? undefined : 0,
+          paddingBottom: isLoaded ? undefined : (image ? `${image.height / image.width * 100}%` : undefined)
         }}>
           {!this.props.isMock ? (
             <img className="w-full" 

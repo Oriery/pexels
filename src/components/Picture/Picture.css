@@ -1,7 +1,7 @@
 .blurred-bg {
   background-repeat: no-repeat;
   background-size: cover;
-  filter: blur(10px) saturate(20%) brightness(50%);
+  filter: blur(2vw) saturate(80%) brightness(100%);
 }
 
 .blurred-bg.loaded {
@@ -34,12 +34,12 @@
 
 @keyframes pulse {
   0% {
-    opacity: 0.1;
+    opacity: 0.05;
   }
   50% {
-    opacity: 0.3;
+    opacity: 0.25;
   }
   100% {
-    opacity: 0.1;
+    opacity: 0.05;
   }
 }
