@@ -14,7 +14,7 @@ function App() {
     picturesManager.searchManager.current.getRandomPhotoOfCategory('nature', true).then((photo) => {
       setRandomNatureImage(photo)
     })
-    picturesManager.searchNextPage('people')
+    picturesManager.searchNextPage('people', true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

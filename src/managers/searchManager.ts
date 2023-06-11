@@ -57,7 +57,7 @@ class SearchManager {
     return foundImage!;
   }, {leading: true, trailing: false, wait: 100});
 
-  public searchNextPage = async (query: string | undefined) : Promise<Photo[]> => {
+  public searchNextPage = debounce(async (query: string | undefined, startFromRandomPage: boolean = false) : Promise<Photo[]> => {
     if (!query) {
       query = this.defaultQuery;
     }
@@ -65,8 +65,19 @@ class SearchManager {
     if (query !== this.searchQuery) {
       this.reset();
       this.searchQuery = query;
-    } else if (this.endReached) {
+    }
+    
+    if (this.endReached) {
       return [];
+    }
+
+    if (startFromRandomPage && this.lastPage !== 0) {
+      console.warn('Cannot start from random page if already have started searching for current query');
+      startFromRandomPage = false;
+    }
+
+    if (startFromRandomPage) {
+      this.lastPage = Math.floor(Math.random() * 100 / PER_PAGE) + 1;
     }
 
     if (this.isSearching) {
@@ -78,11 +89,15 @@ class SearchManager {
     let res = await searchAtPexels({ query: this.searchQuery, per_page: PER_PAGE, page: pageToLoad })
       .finally(() => this.isSearching = false);
     let foundImages = (res as PhotosWithTotalResults).photos;
-    this.lastPage = pageToLoad;
     this.endReached = foundImages.length < PER_PAGE;
+    if (startFromRandomPage) {
+      this.lastPage = 1;
+    } else {
+      this.lastPage = pageToLoad;
+    }
 
     return foundImages;
-  }
+  }, {leading: true, trailing: false, wait: 100});
 
   public getQuery() {
     return this.searchQuery;

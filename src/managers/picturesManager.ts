@@ -29,8 +29,8 @@ const usePicturesManager = (initialQuery: string, autoSearchForInfiniteScroll : 
     prevQuery.current = query;
   };
 
-  const searchNextPage = (query: string) => {
-    searchManager.current.searchNextPage(query).then((photos: Photo[]) => {
+  const searchNextPage = (query: string, startFromRandomPage: boolean = false) => {
+    searchManager.current.searchNextPage(query, startFromRandomPage).then((photos: Photo[]) => {
       addImages(photos, query);
     });
   };
