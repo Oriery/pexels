@@ -1,31 +1,27 @@
 import logo from './logo.svg';
 import SearchBar from '../SearchBar';
-import SearchManager from '../../managers/searchManager';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Photo } from 'pexels';
+import './Header.css'
 
 const SIZES = [240, 360, 480, 720, 1080, 1600, 2400, 3840];
 
-function Header({onSearch} : {onSearch: (searchQuery: string) => void}) {
+function Header({onSearch, randomNatureImage} : {onSearch: (searchQuery: string) => void, randomNatureImage: Photo | null}) {
   let [bgIsLoaded, setBgIsLoaded] = useState(false)
 
   function search (searchQuery : string) {
     onSearch(searchQuery)
   }
 
-  const searchManager = new SearchManager()
-  let [randomNatureImage, setRandomNatureImage] = useState(null as Photo | null)
-
-  useEffect(() => {
-    searchManager.getRandomPhotoOfCategory('nature', true).then((photo) => {
-      setRandomNatureImage(photo)
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
     <header className='App-header min-h-[500px] flex flex-col items-center text-white overflow-hidden relative'>
-      <div className='absolute top-0 left-0 w-full h-full bg-gradient-to-t from-gray-700 to-gray-400 z-[-20]'>
+      <div 
+        className={'absolute top-0 left-0 w-full h-full bg-gradient-to-t from-gray-700 to-gray-400 z-[-20] blurred-bg header-bg brightness-50' + (bgIsLoaded ? ' loaded' : '')}
+        style={{
+          backgroundImage: `url(${randomNatureImage?.src.original}?auto=compress&cs=tinysrgb&w=60)`,
+          backgroundSize: 'cover',
+        }}
+      >
         <img className='absolute top-0 left-0 w-full h-full object-cover z-[-10] brightness-50'
           src={randomNatureImage?.src?.large2x}
           srcSet={SIZES.reduce((acc, px) => acc + `${randomNatureImage?.src?.original}?auto=compress&cs=tinysrgb&w=${px} ${px}w, `, '').slice(0, -2)}
@@ -35,6 +31,7 @@ function Header({onSearch} : {onSearch: (searchQuery: string) => void}) {
           style={{
             visibility: bgIsLoaded ? 'visible' : 'hidden'
           }}
+          loading='lazy'
         />
       </div>
       <nav className='flex flex-row space-x-4 justify-between h-[80px] p-2 px-6 w-full max-w-[1280px]'>

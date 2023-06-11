@@ -31,8 +31,9 @@ class SearchManager {
 
   public getRandomPhotoOfCategory = debounce(async (category: string, onlyLandscape : boolean = false) : Promise<Photo> => {
     console.log(`Searching for random photo of category "${category}"`);
-    let res1 = await searchAtPexels({ query: category, per_page: 1, page: 1 });
-    let totalPhotos = (res1 as PhotosWithTotalResults).total_results;
+    // let res1 = await searchAtPexels({ query: category, per_page: 1, page: 1 });
+    // let totalPhotos = (res1 as PhotosWithTotalResults).total_results;
+    let totalPhotos = 1000;
     let foundImage
     let gotError = false;
     let landscapeFound = false;

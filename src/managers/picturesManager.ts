@@ -58,7 +58,8 @@ const usePicturesManager = (initialQuery: string, autoSearchForInfiniteScroll : 
 
   return {
     images,
-    searchNextPage
+    searchNextPage,
+    searchManager
   };
 };
 
