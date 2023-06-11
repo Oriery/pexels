@@ -40,7 +40,7 @@ class Picture extends Component<PictureProps, PictureState> {
   render() {
     const { image, numberOfColumns } = this.props;
     const { isLoaded, isSmallImgLoaded } = this.state;
-    const SIZES = [100, 300, 500, 720, 1080, 1600];
+    const SIZES = [50, 120, 240, 300, 500, 720, 1080];
 
     return (
       <div className="w-full overflow-hidden">
@@ -54,11 +54,11 @@ class Picture extends Component<PictureProps, PictureState> {
           {!this.props.isMock ? (
             <img className="w-full" 
             alt={image!.alt || undefined} 
-            src={image!.src.original + '?auto=compress&cs=tinysrgb&w=500'}
+            src={image!.src.large}
             srcSet={SIZES.reduce((acc, px) => acc + `${image!.src.original}?auto=compress&cs=tinysrgb&w=${px} ${px}w, `, '').slice(0, -2)}
             loading="lazy"
             onLoad={this.handleImageLoad}
-            sizes={`${SIZES.reduce((acc, px) => acc + `(max-width: ${px * numberOfColumns!}px) ${px}px, `, '')} 1600px`}
+            sizes={`${SIZES.reduce((acc, px, index) => acc + ((index-2 > -1) ? `(max-width: ${px * numberOfColumns!}px) ${SIZES[index-2]}px, ` : ''), '')} 1600px`}
             />
           ) : undefined }
         </div>
