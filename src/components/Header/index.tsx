@@ -10,7 +10,7 @@ function Header({onSearch, randomNatureImage} : {onSearch: (searchQuery: string)
   let [bgIsLoaded, setBgIsLoaded] = useState(false)
 
   return (
-    <header className='App-header min-h-[500px] flex flex-col items-center text-white relative'>
+    <header className='App-header min-h-[500px] flex flex-col items-center text-white relative overflow-hidden'>
       <NavBar onSearch={onSearch}/>
       
       <div className='flex flex-col items-center justify-center h-[376px] max-w-[600px]'>
@@ -33,13 +33,14 @@ function Header({onSearch, randomNatureImage} : {onSearch: (searchQuery: string)
         </a>
       </div>
       <div 
-        className={'absolute top-0 left-0 w-full h-full bg-gradient-to-t from-gray-700 to-gray-400 z-[-20] header-blurred-bg header-bg flex flex-col-reverse' + (bgIsLoaded ? ' loaded' : '')}
+        className={'absolute top-[-5%] left[-5%] w-[110%] h-[110%] z-[-20] header-blurred-bg header-bg flex flex-col-reverse' 
+        + (bgIsLoaded ? ' loaded' : '')}
         style={{
           backgroundImage: `url(${randomNatureImage?.src.original}?auto=compress&cs=tinysrgb&w=60)`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
-      >
+        >
         <img className='absolute top-0 left-0 w-full h-full object-cover z-[-10]'
           src={randomNatureImage?.src?.large2x}
           srcSet={SIZES.reduce((acc, px) => acc + `${randomNatureImage?.src?.original}?auto=compress&cs=tinysrgb&w=${px} ${px}w, `, '').slice(0, -2)}
@@ -50,7 +51,7 @@ function Header({onSearch, randomNatureImage} : {onSearch: (searchQuery: string)
             visibility: bgIsLoaded ? 'visible' : 'hidden'
           }}
           loading='lazy'
-        />
+          />
       </div>
     </header>
   )
