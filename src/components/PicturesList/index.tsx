@@ -69,7 +69,7 @@ function PicturesList({images} : { images: Photo[] }) {
       <div className="flex flex-col md:flex-row h-10 w-full justify-between">
         <h1 className="text-2xl h-full flex items-center">Бесплатные стоковые фото</h1>
         <p className="whitespace-nowrap h-full flex items-center text-xs">All photos are provided by&nbsp;
-          <a href="https://www.pexels.com" className="text-[#07a081]">
+          <a href="https://www.pexels.com" className="text-[#07a081]" target="_blank" rel="noreferrer">
             Pexels
           </a>
         </p>
