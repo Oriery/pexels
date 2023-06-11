@@ -1,6 +1,7 @@
 import logo from './logo.svg';
+import logoBlack from './logo-black.svg';
 import SearchBar from '../SearchBar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Photo } from 'pexels';
 import './Header.css'
 
@@ -8,23 +9,49 @@ const SIZES = [240, 360, 480, 720, 1080, 1600, 2400, 3840];
 
 function Header({onSearch, randomNatureImage} : {onSearch: (searchQuery: string) => void, randomNatureImage: Photo | null}) {
   let [bgIsLoaded, setBgIsLoaded] = useState(false)
+  let [headerIsOutOfView, setHeaderIsOutOfView] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 500) {
+        setHeaderIsOutOfView(true)
+      } else {
+        setHeaderIsOutOfView(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
 
   function search (searchQuery : string) {
     onSearch(searchQuery)
   }
 
   return (
-    <header className='App-header min-h-[500px] flex flex-col items-center text-white overflow-hidden relative'>
-      <nav className='flex flex-row space-x-4 justify-between h-[80px] p-2 px-6 w-full max-w-[1280px]'>
-        <a href='/' className='flex flex-row'>
-          <img src={logo} className='App-logo' alt='logo' />
-        </a>
-        <div className='flex space-x-8 py-2'>
-          <a className='flex items-center' href='/'>Поиск фото</a>
-          <a className='flex items-center' href='/'>Лицензия</a>
-          <a className='flex items-center' href='/'>Загрузка</a>
-          <a className='flex items-center' href='/'>•••</a>
-          <a className='flex items-center bg-white rounded-md px-4 text-black' href='/'>Регистрация</a>
+    <header className='App-header min-h-[500px] flex flex-col items-center text-white relative'>
+      <nav className={' h-[80px] p-2 px-4 md:px-8 w-full' 
+        + (headerIsOutOfView ? ' fixed bg-white text-black' : '')}
+        style={{
+          boxShadow: headerIsOutOfView ? '0 1px 0 #f7f7f7' : 'none',
+        }}
+      >
+        <div className='mx-auto max-w-[1216px] 2xl:max-w-[1600px] w-full h-full flex flex-row space-x-4 justify-between'>
+          <a href='/' className='flex flex-row'>
+            {
+            !headerIsOutOfView ? 
+              <img src={logo} className='App-logo' alt='logo' /> :
+              <img src={logoBlack} className='App-logo-black' alt='logo' /> 
+            }
+          </a>
+          <div className='flex space-x-8 py-2'>
+            <a className='flex items-center' href='/'>Поиск фото</a>
+            <a className='flex items-center' href='/'>Лицензия</a>
+            <a className='flex items-center' href='/'>Загрузка</a>
+            <a className='flex items-center' href='/'>•••</a>
+            <a className={'flex items-center bg-white rounded-md px-4 text-black' + (headerIsOutOfView ? ' bg-[#07a081] text-white' : '')} href='/'>Регистрация</a>
+          </div>
         </div>
       </nav>
       <div className='flex flex-col items-center justify-center h-[376px] max-w-[600px]'>

@@ -65,7 +65,7 @@ function PicturesList({images} : { images: Photo[] }) {
   });
 
   return (
-    <div className="PictureList m-4 md:m-8">
+    <div className="PictureList mx-auto p-4 md:p-8 max-w-[1280px] 2xl:px-8 2xl:max-w-[1460px]">
       <div className="flex flex-col md:flex-row h-10 w-full justify-between">
         <h1 className="text-2xl h-full flex items-center">Бесплатные стоковые фото</h1>
         <p className="whitespace-nowrap h-full flex items-center text-xs">All photos are provided by&nbsp;
