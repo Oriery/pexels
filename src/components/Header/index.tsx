@@ -31,7 +31,7 @@ function Header({onSearch, randomNatureImage} : {onSearch: (searchQuery: string)
 
   return (
     <header className='App-header min-h-[500px] flex flex-col items-center text-white relative'>
-      <nav className={' h-[80px] p-2 px-4 md:px-8 w-full' 
+      <nav className={' h-[80px] p-2 px-4 md:px-8 w-full transition ease-in-out delay-50' 
         + (headerIsOutOfView ? ' fixed bg-white text-black' : '')}
         style={{
           boxShadow: headerIsOutOfView ? '0 1px 0 #f7f7f7' : 'none',
