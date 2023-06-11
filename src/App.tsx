@@ -22,7 +22,7 @@ function App() {
     <div className="App">
       <link rel="preload" href={`${randomNatureImage?.src.original}?auto=compress&cs=tinysrgb&w=60`} as="image" />
       <Header onSearch={picturesManager.searchNextPage} randomNatureImage={randomNatureImage}/>
-      <PicturesList images={picturesManager.images}/>
+      <PicturesList images={picturesManager.images} picturesManager={picturesManager}/>
     </div>
   );
 }

@@ -18,7 +18,7 @@ class SearchManager {
   private searchQuery: string;
   private defaultQuery: string;
   private endReached: boolean;
-  private isSearching: boolean;
+  public isSearching: boolean;
 
   constructor(defaultQuery: string = 'people') {
     this.defaultQuery = defaultQuery;

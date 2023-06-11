@@ -6,6 +6,7 @@ const usePicturesManager = (initialQuery: string, autoSearchForInfiniteScroll : 
   const [images, setImages] = useState<Photo[]>([]);
   const prevQuery = useRef<string>(initialQuery);
   const searchManager = useRef(new SearchManager(initialQuery));
+  let [isSearching, setIsSearching] = useState<boolean>(false);
 
   const addImages = (photos: Photo[], query: string) => {
     if (prevQuery.current === query) {
@@ -30,8 +31,12 @@ const usePicturesManager = (initialQuery: string, autoSearchForInfiniteScroll : 
   };
 
   const searchNextPage = (query: string, startFromRandomPage: boolean = false) => {
+    setIsSearching(true);
     searchManager.current.searchNextPage(query, startFromRandomPage).then((photos: Photo[]) => {
       addImages(photos, query);
+      if (!searchManager.current.isSearching) {
+        setIsSearching(false);
+      }
     });
   };
 
@@ -59,7 +64,8 @@ const usePicturesManager = (initialQuery: string, autoSearchForInfiniteScroll : 
   return {
     images,
     searchNextPage,
-    searchManager
+    searchManager,
+    isSearching,
   };
 };
 

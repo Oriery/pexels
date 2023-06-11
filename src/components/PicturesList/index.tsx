@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import Picture from "../Picture";
 import { Photo } from 'pexels';
+import loadingIcon from './loading.svg';
+import usePicturesManager from "../../managers/picturesManager";
 
 const minHeightsOfMocks = Array.from({ length: 11 }, () => Math.round(200 + Math.random() * 200));
 
-function PicturesList({images} : { images: Photo[] }) {
+function PicturesList({ images, picturesManager } : { images: Photo[], picturesManager : ReturnType<typeof usePicturesManager> }) {
   const [columnsNumber, setColumnsNumber] = useState(window.innerWidth < 768 ? 2 : 3);
   useEffect(() => {
     const handleResize = () => {
@@ -77,6 +79,11 @@ function PicturesList({images} : { images: Photo[] }) {
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 mt-4">
         {columnsOfImagesElems}
       </div>
+      {picturesManager.isSearching && (
+        <div className="flex flex-col items-center justify-center mt-8">
+          <img src={loadingIcon} alt="loading" />
+        </div>
+        )}
     </div>
   );
 }
