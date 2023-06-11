@@ -28,7 +28,7 @@ function PicturesList({images} : { images: Photo[] }) {
       ), 
       picture: image
     };
-  }) : Array.from({ length: 13 }, (_, index) => {
+  }) : Array.from({ length: window.innerHeight / 300 }, (_, index) => {
     return {
       el: (
         <Picture key={-index} isMock={true} mockMinHeight={minHeightsOfMocks[index % minHeightsOfMocks.length]}/>
@@ -47,6 +47,8 @@ function PicturesList({images} : { images: Photo[] }) {
     // col height is rough but good enough approximation of the height of the column in weird units
     if (imageWithEl.picture) {
       acc[column].colHeight += imageWithEl.picture.height / imageWithEl.picture.width;
+    } else {
+      acc[column].colHeight += imageWithEl.el.props.mockMinHeight!;
     }
 
     acc[column].images.push(imageWithEl.el);

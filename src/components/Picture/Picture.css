@@ -11,10 +11,15 @@
 .blurred-bg::before {
   content: "";
   position: absolute;
-  inset: 0;
-  opacity: 0;
-  animation: pulse 2.5s infinite;
-  background-color: black;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  animation: gradient-wave 2.5s linear infinite;
+  background: linear-gradient(90deg, #000000 0%, #ffffff 33%, #000000 66%, #ffffff 100%);
+  z-index: 2;
+  background-size: 200% auto;
+  opacity: 0.15;
 }
 
 .blurred-bg.loaded::before {
@@ -31,15 +36,14 @@
   opacity: 1;
 }
 
-
-@keyframes pulse {
-  0% {
-    opacity: 0.05;
+@keyframes gradient-wave {
+  100% {
+    background-position: 0 0;
   }
   50% {
-    opacity: 0.25;
+    background-position: 100% 0;
   }
-  100% {
-    opacity: 0.05;
+  0% {
+    background-position: 200% 0;
   }
 }
