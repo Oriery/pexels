@@ -16,13 +16,14 @@ function Header({onSearch, randomNatureImage} : {onSearch: (searchQuery: string)
   return (
     <header className='App-header min-h-[500px] flex flex-col items-center text-white overflow-hidden relative'>
       <div 
-        className={'absolute top-0 left-0 w-full h-full bg-gradient-to-t from-gray-700 to-gray-400 z-[-20] blurred-bg header-bg brightness-50' + (bgIsLoaded ? ' loaded' : '')}
+        className={'absolute top-0 left-0 w-full h-full bg-gradient-to-t from-gray-700 to-gray-400 z-[-20] header-blurred-bg header-bg' + (bgIsLoaded ? ' loaded' : '')}
         style={{
           backgroundImage: `url(${randomNatureImage?.src.original}?auto=compress&cs=tinysrgb&w=60)`,
           backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
       >
-        <img className='absolute top-0 left-0 w-full h-full object-cover z-[-10] brightness-50'
+        <img className='absolute top-0 left-0 w-full h-full object-cover z-[-10]'
           src={randomNatureImage?.src?.large2x}
           srcSet={SIZES.reduce((acc, px) => acc + `${randomNatureImage?.src?.original}?auto=compress&cs=tinysrgb&w=${px} ${px}w, `, '').slice(0, -2)}
           sizes={`${SIZES.reduce((acc, px, index) => acc + ((index-2 > -1) ? `(max-width: ${px}px) ${SIZES[index-2]}px, ` : ''), '')} 3840px`}

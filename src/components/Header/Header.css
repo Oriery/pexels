@@ -1,3 +1,60 @@
-.header-bg::before { 
-  filter: brightness(0.2);
+.header-blurred-bg {
+  background-color: #666;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(1vw) brightness(0.5);
+}
+
+.header-blurred-bg.loaded {
+  filter: none;
+  transition: filter 0.25s ease;
+}
+
+.header-blurred-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  animation: gradient-wave 2.5s linear infinite;
+  background: linear-gradient(90deg, #000000 0%, #ffffff 33%, #000000 66%, #ffffff 100%);
+  z-index: 2;
+  background-size: 200% auto;
+  opacity: 0.03;
+  filter: brightness(50%);
+}
+
+.header-blurred-bg.loaded::before {
+  animation: none;
+  content: none;
+  animation: fadeOut 0.25s linear forwards;
+}
+
+.header-blurred-bg img {
+  opacity: 0;
+  transition: opacity 250ms ease-in-out;
+  filter: brightness(0.5);
+}
+
+.header-blurred-bg.loaded img {
+  opacity: 1;
+}
+
+@keyframes gradient-wave {
+  100% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 100% 0;
+  }
+  0% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
 }

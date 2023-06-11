@@ -6,6 +6,7 @@
 
 .blurred-bg.loaded {
   filter: none;
+  transition: filter 0.25s ease;
 }
 
 .blurred-bg::before {
@@ -25,6 +26,7 @@
 .blurred-bg.loaded::before {
   animation: none;
   content: none;
+  animation: fadeOut 0.25s linear forwards;
 }
 
 .blurred-bg img {
@@ -45,5 +47,11 @@
   }
   0% {
     background-position: 200% 0;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
   }
 }

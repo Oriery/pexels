@@ -47,6 +47,7 @@ class SearchManager {
       } catch (error) {
         gotError = true;
         console.log(error);
+        await new Promise(resolve => setTimeout(resolve, 3000));
       }
       if (onlyLandscape && !landscapeFound) {
         console.log('Found only portrait images, trying again');
