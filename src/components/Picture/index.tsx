@@ -58,7 +58,7 @@ class Picture extends Component<PictureProps, PictureState> {
             srcSet={SIZES.reduce((acc, px) => acc + `${image!.src.original}?auto=compress&cs=tinysrgb&w=${px} ${px}w, `, '').slice(0, -2)}
             loading="lazy"
             onLoad={this.handleImageLoad}
-            sizes={`${SIZES.reduce((acc, px, index) => acc + ((index-2 > -1) ? `(max-width: ${px * numberOfColumns!}px) ${SIZES[index-2]}px, ` : ''), '')} 1600px`}
+            sizes={`${SIZES.reduce((acc, px) => acc + `(max-width: ${px * numberOfColumns!}px) ${px}px, `, '')} 1600px`}
             />
           ) : undefined }
         </div>

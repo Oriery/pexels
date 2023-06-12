@@ -44,7 +44,7 @@ function Header({onSearch, randomNatureImage} : {onSearch: (searchQuery: string)
         <img className='absolute top-0 left-0 w-full h-full object-cover z-[-10]'
           src={randomNatureImage?.src?.large2x}
           srcSet={SIZES.reduce((acc, px) => acc + `${randomNatureImage?.src?.original}?auto=compress&cs=tinysrgb&w=${px} ${px}w, `, '').slice(0, -2)}
-          sizes={`${SIZES.reduce((acc, px, index) => acc + ((index-2 > -1) ? `(max-width: ${px}px) ${SIZES[index-2]}px, ` : ''), '')} 3840px`}
+          sizes={`${SIZES.reduce((acc, px) => acc + `(max-width: ${px}px) ${px}px, `, '')} 3840px`}
           alt='nature'
           onLoad={() => setBgIsLoaded(true)}
           style={{
