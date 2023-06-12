@@ -2,10 +2,10 @@ import { useState, useRef, useEffect } from 'react';
 import SearchManager from './searchManager';
 import { Photo } from 'pexels';
 
-const usePicturesManager = (initialQuery: string, autoSearchForInfiniteScroll : boolean = true) => {
+const usePicturesManager = (autoSearchForInfiniteScroll : boolean = true) => {
   const [images, setImages] = useState<Photo[]>([]);
-  const prevQuery = useRef<string>(initialQuery);
-  const searchManager = useRef(new SearchManager(initialQuery));
+  const prevQuery = useRef<string>('');
+  const searchManager = useRef(new SearchManager());
   let [isSearching, setIsSearching] = useState<boolean>(false);
 
   const addImages = (photos: Photo[], query: string) => {
@@ -31,6 +31,11 @@ const usePicturesManager = (initialQuery: string, autoSearchForInfiniteScroll : 
   };
 
   const searchNextPage = (query: string, startFromRandomPage: boolean = false) => {
+    if (!query) {
+      console.warn('Cannot search for empty query');
+      return;
+    }
+
     setIsSearching(true);
     searchManager.current.searchNextPage(query, startFromRandomPage).then((photos: Photo[]) => {
       addImages(photos, query);

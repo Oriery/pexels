@@ -16,15 +16,12 @@ const PER_PAGE = 10;
 class SearchManager {
   private lastPage: number;
   private searchQuery: string;
-  private defaultQuery: string;
   private endReached: boolean;
   public isSearching: boolean;
 
-  constructor(defaultQuery: string = 'people') {
-    this.defaultQuery = defaultQuery;
-
+  constructor() {
     this.lastPage = 0;
-    this.searchQuery = this.defaultQuery;
+    this.searchQuery = '';
     this.endReached = false;
     this.isSearching = false;
   }
@@ -50,9 +47,10 @@ class SearchManager {
     return foundImage!;
   }, {leading: true, trailing: false, wait: 100});
 
-  public searchNextPage = debounce(async (query: string | undefined, startFromRandomPage: boolean = false) : Promise<Photo[]> => {
+  public searchNextPage = debounce(async (query: string, startFromRandomPage: boolean = false) : Promise<Photo[]> => {
     if (!query) {
-      query = this.defaultQuery;
+      console.warn('Cannot search for empty query');
+      return [];
     }
 
     if (query !== this.searchQuery) {
@@ -99,7 +97,7 @@ class SearchManager {
 
   public reset() {
     this.lastPage = 0;
-    this.searchQuery = this.defaultQuery;
+    this.searchQuery = '';
     this.endReached = false;
     this.isSearching = false;
   }

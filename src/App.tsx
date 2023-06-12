@@ -8,14 +8,13 @@ import { Photo } from 'pexels';
 
 function App() {
 
-  let picturesManager = usePicturesManager('people')
+  let picturesManager = usePicturesManager()
   let [randomNatureImage, setRandomNatureImage] = useState(null as Photo | null)
 
   useEffect(() => {
     picturesManager.searchManager.current.getRandomPhotoOfCategory('nature&orientation=landscape').then((photo) => {
       setRandomNatureImage(photo)
     })
-    picturesManager.searchNextPage('people', true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
