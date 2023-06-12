@@ -22,7 +22,7 @@ function NavBar({onSearch} : {onSearch: (searchQuery: string) => void}) {
   }, []);
 
   return (
-    <nav className={' h-[80px] p-2 px-4 md:px-8 w-full transition ease-in-out delay-50' 
+    <nav className={' h-[80px] p-2 px-4 md:px-8 w-full transition ease-in-out delay-50 z-50' 
       + (headerIsOutOfView ? ' fixed bg-white text-black' : '')}
       style={{
         boxShadow: headerIsOutOfView ? '0 1px 0 #f7f7f7' : 'none',
