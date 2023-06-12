@@ -8,6 +8,7 @@ function SearchBar({ onSearch } : { onSearch: (query : string) => void }) {
 
   function handleSubmit(e : React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    if (searchQuery === '') return
     navigate(`/search/${searchQuery}`)
     onSearch(searchQuery)
   }
