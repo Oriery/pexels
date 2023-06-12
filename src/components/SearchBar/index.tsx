@@ -1,5 +1,5 @@
 import search from './search.svg'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
 function SearchBar({ onSearch } : { onSearch: (query : string) => void }) {
@@ -11,6 +11,11 @@ function SearchBar({ onSearch } : { onSearch: (query : string) => void }) {
     navigate(`/search/${searchQuery}`)
     onSearch(searchQuery)
   }
+
+  useEffect(() => {
+    onSearch(searchQuery || 'people')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <form className="search-bar flex flex-row justify-between items-center w-full bg-gray-100 rounded-md h-full" onSubmit={handleSubmit}>

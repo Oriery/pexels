@@ -18,13 +18,17 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  function onSearch(query : string) {
+    picturesManager.searchNextPage(query)
+  }
+
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={ 
           <div>
             <link rel="preload" href={`${randomNatureImage?.src.original}?auto=compress&cs=tinysrgb&w=60`} as="image" />
-            <Header onSearch={() => {}} randomNatureImage={randomNatureImage}/>
+            <Header onSearch={onSearch} randomNatureImage={randomNatureImage}/>
             <Outlet />
           </div>
          } >
