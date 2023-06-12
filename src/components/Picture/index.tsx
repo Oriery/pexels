@@ -107,7 +107,7 @@ class Picture extends Component<PictureProps, PictureState> {
                   <div className='flex items-center px-2'>
                     <a className='text-md text-white font-semibold' href={image!.photographer_url} target='_blank' rel="noreferrer">{image!.photographer}</a>
                   </div>
-                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center' onClick={() => this.downloadImage(image!.src.original)}>
+                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center' onClick={() => this.state.isDownloading || this.downloadImage(image!.src.original)}>
                     { this.state.isDownloading ?
                       <img src={loading} alt="loading" className='' />
                       :
