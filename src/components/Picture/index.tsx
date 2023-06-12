@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Photo } from 'pexels';
 import './Picture.css';
 import heart from './heart.png'
+import heartFull from './heart-full.png'
 import bookmark from "./bookmark.png";
 import download from "./download.png";
 import loading from "./loading.svg";
+import { getLike, setLike } from '../../managers/likesManager'
 
 interface PictureProps {
   image?: Photo;
@@ -17,6 +19,7 @@ interface PictureState {
   isLoaded: boolean;
   isSmallImgLoaded: boolean;
   isDownloading: boolean;
+  isLiked: boolean;
 }
 
 class Picture extends Component<PictureProps, PictureState> {
@@ -26,7 +29,8 @@ class Picture extends Component<PictureProps, PictureState> {
     this.state = {
       isLoaded: false,
       isSmallImgLoaded: false,
-      isDownloading: false
+      isDownloading: false,
+      isLiked: !!props.image && getLike(props.image.id)
     };
   
     if (!!props.image && !!props.isMock) {
@@ -91,8 +95,12 @@ class Picture extends Component<PictureProps, PictureState> {
                   <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center'>
                     <img src={bookmark} alt="bookmark" className='' />
                   </div>
-                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center'>
-                    <img src={heart} alt="like" className='' />
+                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center' onClick={() => {setLike(image!.id, !this.state.isLiked); this.setState({isLiked: !this.state.isLiked})}}>
+                    { this.state.isLiked ?
+                      <img src={heartFull} alt="remove like" className='' />
+                      :
+                      <img src={heart} alt="like" className='' />
+                    }
                   </div>
                 </div>
                 <div className='flex flex-row w-full space-x-1 justify-between'>
