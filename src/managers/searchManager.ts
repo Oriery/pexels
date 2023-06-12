@@ -29,30 +29,23 @@ class SearchManager {
     this.isSearching = false;
   }
 
-  public getRandomPhotoOfCategory = debounce(async (category: string, onlyLandscape : boolean = false) : Promise<Photo> => {
+  public getRandomPhotoOfCategory = debounce(async (category: string) : Promise<Photo> => {
     console.log(`Searching for random photo of category "${category}"`);
     // let res1 = await searchAtPexels({ query: category, per_page: 1, page: 1 });
     // let totalPhotos = (res1 as PhotosWithTotalResults).total_results;
     let totalPhotos = 1000;
     let foundImage
-    let gotError = false;
-    let landscapeFound = false;
     do {
-      const PER_PAGE = 5;
-      let randomPage = Math.floor(Math.random() * totalPhotos / PER_PAGE) + 1;
-      try {
+        try {
+        const PER_PAGE = 1;
+        let randomPage = Math.floor(Math.random() * totalPhotos / PER_PAGE) + 1;
         let res2 = await searchAtPexels({ query: category, per_page: PER_PAGE, page: randomPage });
         foundImage = (res2 as PhotosWithTotalResults).photos.find((photo) => photo.height < photo.width);
-        landscapeFound = foundImage !== undefined;
-      } catch (error) {
-        gotError = true;
-        console.log(error);
-        await new Promise(resolve => setTimeout(resolve, 3000));
+      } catch (e) {
+        console.error(e);
+        console.log('Retrying...');
       }
-      if (onlyLandscape && !landscapeFound) {
-        console.log('Found only portrait images, trying again');
-      }
-    } while (gotError || (onlyLandscape && !landscapeFound));
+    } while (!foundImage);
     
     return foundImage!;
   }, {leading: true, trailing: false, wait: 100});

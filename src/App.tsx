@@ -11,7 +11,7 @@ function App() {
   let [randomNatureImage, setRandomNatureImage] = useState(null as Photo | null)
 
   useEffect(() => {
-    picturesManager.searchManager.current.getRandomPhotoOfCategory('nature', true).then((photo) => {
+    picturesManager.searchManager.current.getRandomPhotoOfCategory('nature&orientation=landscape').then((photo) => {
       setRandomNatureImage(photo)
     })
     picturesManager.searchNextPage('people', true)
