@@ -4,6 +4,7 @@ import './Picture.css';
 import heart from './heart.png'
 import bookmark from "./bookmark.png";
 import download from "./download.png";
+import loading from "./loading.svg";
 
 interface PictureProps {
   image?: Photo;
@@ -15,17 +16,17 @@ interface PictureProps {
 interface PictureState {
   isLoaded: boolean;
   isSmallImgLoaded: boolean;
+  isDownloading: boolean;
 }
 
 class Picture extends Component<PictureProps, PictureState> {
   constructor(props: PictureProps) {
     super(props);
 
-
-
     this.state = {
       isLoaded: false,
-      isSmallImgLoaded: false
+      isSmallImgLoaded: false,
+      isDownloading: false
     };
   
     if (!!props.image && !!props.isMock) {
@@ -35,6 +36,23 @@ class Picture extends Component<PictureProps, PictureState> {
       throw new Error('Picture component must receive numberOfColumns prop if image is not mock');
     }
   }
+
+  downloadImage = (url : string) => {
+    let filename = url.split('/').pop();
+
+    this.setState({isDownloading: true});
+    fetch(url)
+        .then(response => response.blob())
+        .then(blob => {
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = filename!;
+            link.click();
+        })
+        .catch(console.error)
+        .finally(() => this.setState({isDownloading: false}));
+  }
+
 
   handleImageLoad = () => {
     this.setState({ isLoaded: true });
@@ -81,8 +99,12 @@ class Picture extends Component<PictureProps, PictureState> {
                   <div className='flex items-center px-2'>
                     <a className='text-md text-white font-semibold' href={image!.photographer_url} target='_blank' rel="noreferrer">{image!.photographer}</a>
                   </div>
-                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center'>
-                    <img src={download} alt="download" className='' />
+                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center' onClick={() => this.downloadImage(image!.src.original)}>
+                    { this.state.isDownloading ?
+                      <img src={loading} alt="loading" className='' />
+                      :
+                      <img src={download} alt="download" className='' />
+                    }
                   </div>
                 </div>
               </div>
