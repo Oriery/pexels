@@ -92,10 +92,10 @@ class Picture extends Component<PictureProps, PictureState> {
                 }}
               >
                 <div className='flex flex-row w-full space-x-1 justify-end'>
-                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center'>
+                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center cursor-pointer'>
                     <img src={bookmark} alt="bookmark" className='' />
                   </div>
-                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center' onClick={() => {setLike(image!.id, !this.state.isLiked); this.setState({isLiked: !this.state.isLiked})}}>
+                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center cursor-pointer' onClick={() => {setLike(image!.id, !this.state.isLiked); this.setState({isLiked: !this.state.isLiked})}}>
                     { this.state.isLiked ?
                       <img src={heartFull} alt="remove like" className='' />
                       :
@@ -107,7 +107,7 @@ class Picture extends Component<PictureProps, PictureState> {
                   <div className='flex items-center px-2'>
                     <a className='text-md text-white font-semibold' href={image!.photographer_url} target='_blank' rel="noreferrer">{image!.photographer}</a>
                   </div>
-                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center' onClick={() => this.state.isDownloading || this.downloadImage(image!.src.original)}>
+                  <div className={'bg-white rounded-lg p-3 w-10 h-10 flex items-center' + (this.state.isDownloading ? '' : ' cursor-pointer')} onClick={() => this.state.isDownloading || this.downloadImage(image!.src.original)}>
                     { this.state.isDownloading ?
                       <img src={loading} alt="loading" className='' />
                       :
