@@ -86,6 +86,7 @@ class SearchManager {
     this.isSearching = true;
 
     let pageToLoad = this.lastPage + 1;
+    console.log(`Searching for page ${pageToLoad} of query "${this.searchQuery}"`);
     let res = await searchAtPexels({ query: this.searchQuery, per_page: PER_PAGE, page: pageToLoad })
       .finally(() => this.isSearching = false);
     let foundImages = (res as PhotosWithTotalResults).photos;

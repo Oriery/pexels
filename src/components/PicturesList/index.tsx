@@ -3,22 +3,82 @@ import Picture from "../Picture";
 import { Photo } from 'pexels';
 import loadingIcon from './loading.svg';
 import usePicturesManager from "../../managers/picturesManager";
+import { debounce } from "advanced-throttle-debounce";
 
 const minHeightsOfMocks = Array.from({ length: 11 }, () => Math.round(200 + Math.random() * 200));
 
 function PicturesList({ images, picturesManager } : { images: Photo[], picturesManager : ReturnType<typeof usePicturesManager> }) {
   const [columnsNumber, setColumnsNumber] = useState(window.innerWidth < 768 ? 2 : 3);
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setColumnsNumber(2);
-      } else {
-        setColumnsNumber(3);
-      }
+
+    let timeoutIsSet = false;
+    let prevScrollYRaw = 0;
+    let prevScrollY = 0;
+    let prevScrollPercentage = 0;
+    calcScrollVariables();
+
+    function calcScrollVariables() {
+      prevScrollYRaw = window.scrollY;
+      prevScrollY = prevScrollYRaw - 500 + window.innerHeight / 2;
+      prevScrollPercentage = (prevScrollY) / (document.body.scrollHeight - 500);
     }
 
+    function calculateNewScrollY(prevScrollPercentage : number) {
+      return 500 + prevScrollPercentage * (document.body.scrollHeight - 500) - window.innerHeight / 2;
+    }
+
+    const handleResize = debounce(() => {
+      let changedNumberOfColumns = false;
+
+      if (window.innerWidth < 768) {
+        setColumnsNumber((prev) => {
+          if (prev !== 2) {
+            changedNumberOfColumns = true;
+          }
+          return 2;
+        });
+      } else {
+        setColumnsNumber((prev) => {
+          if (prev !== 3) {
+            changedNumberOfColumns = true;
+          }
+          return 3;
+        });
+      }
+
+      if (prevScrollYRaw > 500 && !timeoutIsSet) {
+        if (changedNumberOfColumns) {
+          timeoutIsSet = true;
+
+          let prevScrollPercentageCopy = prevScrollPercentage;
+          let scroll = () => {
+            window.scrollTo({
+              left: 0,
+              top: calculateNewScrollY(prevScrollPercentageCopy),
+              behavior: 'smooth'
+            });
+            timeoutIsSet = false;
+          }
+          setTimeout(scroll, 1000);
+        } else {
+          window.scrollTo(0, calculateNewScrollY(prevScrollPercentage));
+        }
+      }
+
+      calcScrollVariables();
+    }, {wait: 30, maxWait: 200})
+
+    const handleScroll = () => {
+      calcScrollVariables();
+    }
+    
+    window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   type ImageWithEl = { el: JSX.Element, picture: Photo | null };
