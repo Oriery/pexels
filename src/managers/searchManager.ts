@@ -70,7 +70,7 @@ class SearchManager {
     }
 
     if (startFromRandomPage) {
-      this.lastPage = Math.floor(Math.random() * 100 / PER_PAGE) + 1;
+      this.lastPage = Math.floor(Math.random() * 1000 / PER_PAGE) + 1;
     }
 
     if (this.isSearching) {
@@ -85,7 +85,7 @@ class SearchManager {
     let foundImages = (res as PhotosWithTotalResults).photos;
     this.endReached = foundImages.length < PER_PAGE;
     if (startFromRandomPage) {
-      this.lastPage = 1;
+      this.lastPage = 0;
     } else {
       this.lastPage = pageToLoad;
     }
