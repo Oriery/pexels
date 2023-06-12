@@ -51,11 +51,11 @@ function NavBar({onSearch} : {onSearch: (searchQuery: string) => void}) {
           <a className='flex items-center' href='/'>Лицензия</a>
           <a className='flex items-center' href='/'>Загрузка</a>
           <a className='flex items-center' href='/'>•••</a>
-          <a className={'flex items-center bg-white rounded-md px-4 text-black' + (headerIsOutOfView ? ' bg-[#07a081] text-white' : '')} href='/'>Регистрация</a>
+          <a className={'flex items-center rounded-md px-4 text-black' + (headerIsOutOfView ? ' bg-[#07a081] text-white' : ' bg-white')} href='/'>Регистрация</a>
         </div>
         <div className='flex flex-row h-full space-x-8 flex lg:hidden items-center'>
           <div className='space-x-8 h-full py-2 flex-none flex'>
-            <a className={'flex items-center bg-white rounded-md px-4 text-black' + (headerIsOutOfView ? ' bg-[#07a081] text-white' : '')} href='/'>Регистрация</a>
+            <a className={'flex items-center rounded-md px-4 text-black' + (headerIsOutOfView ? ' bg-[#07a081] text-white' : ' bg-white')} href='/'>Регистрация</a>
           </div>
           <a className='flex items-center w-6 h-6'
             style={{
