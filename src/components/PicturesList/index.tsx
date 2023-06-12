@@ -7,8 +7,12 @@ import { debounce } from "advanced-throttle-debounce";
 
 const minHeightsOfMocks = Array.from({ length: 11 }, () => Math.round(200 + Math.random() * 200));
 
-function PicturesList({ images, picturesManager } : { images: Photo[], picturesManager : ReturnType<typeof usePicturesManager> }) {
+function PicturesList({ images, picturesManager, posY } : { images: Photo[], picturesManager : ReturnType<typeof usePicturesManager>, posY: number }) {
   const [columnsNumber, setColumnsNumber] = useState(window.innerWidth < 768 ? 2 : 3);
+
+  const POS_Y_OF_ACTUAL_LIST_INSIDE_OF_COMPONENT = 40;
+  let listPosY = posY + POS_Y_OF_ACTUAL_LIST_INSIDE_OF_COMPONENT;
+
   useEffect(() => {
 
     let timeoutIsSet = false;
@@ -19,12 +23,12 @@ function PicturesList({ images, picturesManager } : { images: Photo[], picturesM
 
     function calcScrollVariables() {
       prevScrollYRaw = window.scrollY;
-      prevScrollY = prevScrollYRaw - 500 + window.innerHeight / 2;
-      prevScrollPercentage = (prevScrollY) / (document.body.scrollHeight - 500);
+      prevScrollY = prevScrollYRaw - listPosY + window.innerHeight / 2;
+      prevScrollPercentage = (prevScrollY) / (document.body.scrollHeight - listPosY);
     }
 
     function calculateNewScrollY(prevScrollPercentage : number) {
-      return 500 + prevScrollPercentage * (document.body.scrollHeight - 500) - window.innerHeight / 2;
+      return listPosY + prevScrollPercentage * (document.body.scrollHeight - listPosY) - window.innerHeight / 2;
     }
 
     const handleResize = debounce(() => {
@@ -46,7 +50,7 @@ function PicturesList({ images, picturesManager } : { images: Photo[], picturesM
         });
       }
 
-      if (prevScrollYRaw > 500 && !timeoutIsSet) {
+      if (prevScrollYRaw > listPosY && !timeoutIsSet) {
         if (changedNumberOfColumns) {
           timeoutIsSet = true;
 
@@ -143,7 +147,7 @@ function PicturesList({ images, picturesManager } : { images: Photo[], picturesM
         <div className="flex flex-col items-center justify-center mt-8">
           <img src={loadingIcon} alt="loading" />
         </div>
-        )}
+      )}
     </div>
   );
 }

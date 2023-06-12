@@ -1,23 +1,26 @@
 import search from './search.svg'
-import { FormEvent, useState } from 'react'
+import { useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 
-function SearchBar({ onSearch } : { onSearch : (searchQuery : string) => void }) {
-  let [searchQuery, setSearchQuery] = useState('')
+function SearchBar({ onSearch } : { onSearch: (query : string) => void }) {
+  let [searchQuery, setSearchQuery] = useState(useParams().query || '')
+  let navigate = useNavigate()
 
-  const onFormSubmit = (event : FormEvent) => {
-    event.preventDefault()
+  function handleSubmit(e : React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    navigate(`/search/${searchQuery}`)
     onSearch(searchQuery)
   }
 
   return (
-    <form className="search-bar flex flex-row justify-between items-center w-full bg-gray-100 rounded-md h-full" onSubmit={onFormSubmit}>
+    <form className="search-bar flex flex-row justify-between items-center w-full bg-gray-100 rounded-md h-full" onSubmit={handleSubmit}>
       <div className="flex items-center text-black px-7 py-1 my-2 pr-6 mr-1" style={{
         boxShadow: '1px 0 0 #e7e7e7',
       }}>
         Фото
       </div>
       <input className="w-full px-2 bg-gray-100 text-black focus:outline focus:outline-0" type="text" placeholder="Поиск бесплатных изображений" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}  />
-      <button className="flex flex-row place-content-center place-items-center p-2 m-1 h-10 aspect-square">
+      <button type="submit" className="flex flex-row place-content-center place-items-center p-2 m-1 h-10 aspect-square">
         <img src={search} alt='search' />
       </button>
     </form>

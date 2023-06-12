@@ -2,11 +2,12 @@ import SearchBar from '../SearchBar';
 import NavBar from '../NavBar';
 import { useState } from 'react';
 import { Photo } from 'pexels';
+import { Link } from 'react-router-dom';
 import './Header.css'
 
 const SIZES = [240, 360, 480, 720, 1080, 1600, 2400, 3840];
 
-function Header({onSearch, randomNatureImage} : {onSearch: (searchQuery: string) => void, randomNatureImage: Photo | null}) {
+function Header({onSearch, randomNatureImage } : {onSearch: (searchQuery: string) => void, randomNatureImage: Photo | null }) {
   let [bgIsLoaded, setBgIsLoaded] = useState(false)
 
   return (
@@ -20,10 +21,10 @@ function Header({onSearch, randomNatureImage} : {onSearch: (searchQuery: string)
         </div>
         <div className='flex flex-row space-x-2 mt-6 w-full'>
           <p className='text-gray-300'>Тенденции:</p>
-          <a className='' href='/'>Природа</a>,
-          <a className='' href='/'>Путешествия</a>,
-          <a className='' href='/'>Архитектура</a>,
-          <a className='' href='/'>Культура</a>
+          <Link className='' to='/'>Природа</Link>,
+          <Link className='' to='/'>Путешествия</Link>,
+          <Link className='' to='/'>Архитектура</Link>,
+          <Link className='' to='/'>Культура</Link>
         </div>
       </div>
       <div className='flex flex-row-reverse mb-6 mr-10 opacity-50 text-sm z-20 w-full'>
