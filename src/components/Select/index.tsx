@@ -49,7 +49,7 @@ function Select({ options, startValue, onChange } : { options: string[], startVa
 
   return (
     <div className={'w-full h-full relative dropdown-' + id}>
-      <div className={"w-full px-4 py-2 md:py-4 bg-gray-100 text-black items-center flex flex-row justify-between rounded-lg font-semibold cursor-pointer hover:bg-gray-300 duration-200"
+      <div className={"w-full px-4 py-2 md:py-4 bg-gray-100 text-black items-center flex flex-row justify-between rounded-lg font-semibold cursor-pointer hover:bg-gray-300 active:bg-gray-400 duration-200"
        + (value === startValue ? '' : ' bg-gray-200')} 
         onClick={() => setIsExpanded(!isExpanded)}
         onKeyDown={(e) => {
@@ -73,7 +73,7 @@ function Select({ options, startValue, onChange } : { options: string[], startVa
       }}>
         {options.map((option, i, arr) => (
           <div className='w-full m-1'>
-            <div key={i} className="w-full px-3 py-3 items-center flex flex-row justify-between rounded-lg cursor-pointer hover:bg-gray-300 duration-200 font-semibold" 
+            <div key={i} className="w-full px-3 py-3 items-center flex flex-row justify-between rounded-lg cursor-pointer hover:bg-gray-300 active:bg-gray-400 duration-200 font-semibold" 
               onClick={() => selectValue(option)} 
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {

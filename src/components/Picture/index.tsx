@@ -93,10 +93,10 @@ class Picture extends Component<PictureProps, PictureState> {
                 }}
               >
                 <div className='flex flex-row w-full space-x-1 justify-end'>
-                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center cursor-pointer hover:bg-gray-300 duration-200'>
+                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center cursor-pointer hover:bg-gray-300 active:bg-gray-400 duration-200'>
                     <img src={bookmark} alt="bookmark" className='' />
                   </div>
-                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center cursor-pointer hover:bg-gray-300 duration-200' onClick={() => {setLike(image!.id, !this.state.isLiked); this.setState({isLiked: !this.state.isLiked})}}>
+                  <div className='bg-white rounded-lg p-3 w-10 h-10 flex items-center cursor-pointer hover:bg-gray-300 active:bg-gray-400 duration-200' onClick={() => {setLike(image!.id, !this.state.isLiked); this.setState({isLiked: !this.state.isLiked})}}>
                     { this.state.isLiked ?
                       <img src={heartFull} alt="remove like" className='' />
                       :
@@ -106,9 +106,9 @@ class Picture extends Component<PictureProps, PictureState> {
                 </div>
                 <div className='flex flex-row w-full space-x-1 justify-between'>
                   <div className='flex items-center px-2'>
-                    <a className='text-md text-white font-semibold hover:text-gray-300 duration-200' href={image!.photographer_url} target='_blank' rel="noreferrer">{image!.photographer}</a>
+                    <a className='text-md text-white font-semibold hover:text-gray-300 active:text-gray-400 duration-200' href={image!.photographer_url} target='_blank' rel="noreferrer">{image!.photographer}</a>
                   </div>
-                  <div className={'bg-white rounded-lg p-3 w-10 h-10 flex items-center duration-200' + (this.state.isDownloading ? ' ' : ' cursor-pointer hover:bg-gray-300')} onClick={() => this.state.isDownloading || this.downloadImage(image!.src.original)}>
+                  <div className={'bg-white rounded-lg p-3 w-10 h-10 flex items-center duration-200' + (this.state.isDownloading ? ' ' : ' cursor-pointer hover:bg-gray-300 active:bg-gray-400')} onClick={() => this.state.isDownloading || this.downloadImage(image!.src.original)}>
                     { this.state.isDownloading ?
                       <img src={loading} alt="loading" className='' />
                       :

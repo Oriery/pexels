@@ -147,7 +147,7 @@ function PicturesList({ images, picturesManager, onFiltersChanged, posY, isOnCat
         <h1 className="text-2xl h-full flex items-center">Бесплатные стоковые фото</h1>
       }
         <p className="whitespace-nowrap h-full flex items-center text-xs">All photos are provided by&nbsp;
-          <a href="https://www.pexels.com" className="text-[#07a081] hover:brightness-75 duration-200" target="_blank" rel="noreferrer">
+          <a href="https://www.pexels.com" className="text-[#07a081] hover:brightness-75 active:brightness-65 duration-200" target="_blank" rel="noreferrer">
             <div tabIndex={100}>
               Pexels
             </div>

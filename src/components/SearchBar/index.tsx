@@ -42,7 +42,7 @@ function SearchBar({ onSearch } : { onSearch: (query : string, goingToMainPage? 
         tabIndex={50}
       />
       <button type="submit" 
-        className="flex flex-row place-content-center place-items-center p-2 m-1 h-10 aspect-square hover:scale-110 duration-100"
+        className="flex flex-row place-content-center place-items-center p-2 m-1 h-10 aspect-square hover:scale-110 active:scale-125 duration-100"
         tabIndex={50}
       >
         <img src={search} alt='search' />
