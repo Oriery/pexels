@@ -20,12 +20,12 @@ function Header({onSearch, randomNatureImage } : {onSearch: (searchQuery: string
     <header className='App-header min-h-[500px] flex flex-col items-center text-white relative overflow-hidden'>
       <NavBar onSearch={onSearch}/>
       
-      <div className='flex flex-col items-center justify-center h-[376px] max-w-[600px]'>
-        <h2 className='text-4xl font-bold text-start'>Лучшие бесплатные стоковые фото, изображения без роялти и видео от талантливых авторов.</h2>
+      <div className='flex flex-col mx-4 items-center justify-center h-[376px] max-w-[600px]'>
+        <h2 className='text-2xl sm:text-4xl font-bold text-start'>Лучшие бесплатные стоковые фото, изображения без роялти и видео от талантливых авторов.</h2>
         <div className='mt-6 w-full'>
           <SearchBar onSearch={onSearch}/>
         </div>
-        <div className='flex flex-row space-x-2 mt-6 w-full'>
+        <div className='flex flex-row space-x-2 mt-6 w-full flex flex-row flex-wrap'>
           <p className='text-gray-300'>Тенденции:</p>
           { trends.map((trend, i) => {
             trend = capitializeFirstLetter(trend)
