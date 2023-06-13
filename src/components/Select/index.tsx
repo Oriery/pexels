@@ -41,13 +41,18 @@ function Select({ options, startValue, onChange } : { options: string[], startVa
         boxShadow: '0 1px 2px rgba(0,0,0,0.2)',
         display: isExpanded ? 'flex' : 'none',
       }}>
-        {options.map((option, i) => (
-          <div key={i} className="w-full m-1 px-3 py-3 items-center flex flex-row justify-between rounded-lg cursor-pointer hover:bg-gray-300 duration-200 font-semibold" 
-            onClick={() => selectValue(option)} 
-          >
-            <p>{option}</p>
-            {option === value && 
-              <img src={correct} alt='correct' className='w-4 h-4' />
+        {options.map((option, i, arr) => (
+          <div className='w-full m-1'>
+            <div key={i} className="w-full px-3 py-3 items-center flex flex-row justify-between rounded-lg cursor-pointer hover:bg-gray-300 duration-200 font-semibold" 
+              onClick={() => selectValue(option)} 
+            >
+              <p>{option}</p>
+              {option === value && 
+                <img src={correct} alt='correct' className='w-4 h-4' />
+              }
+            </div>
+            {i !== arr.length - 1 && 
+                <hr className='mx-3 mt-1' />
             }
           </div>
         ))}
