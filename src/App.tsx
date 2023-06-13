@@ -40,6 +40,7 @@ function App() {
     if (!filters || !lastQuery) return
     if (filters === lastFilters) return
     setLastFilters(filters)
+    picturesManager.clearImages()
     picturesManager.searchNextPage(lastQuery + filters)
   }
 
