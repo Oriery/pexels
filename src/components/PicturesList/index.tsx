@@ -4,13 +4,15 @@ import { Photo } from 'pexels';
 import loadingIcon from './loading.svg';
 import usePicturesManager from "../../managers/picturesManager";
 import { debounce } from "advanced-throttle-debounce";
+import { useParams } from 'react-router-dom'
 
 const minHeightsOfMocks = Array.from({ length: 11 }, () => Math.round(200 + Math.random() * 200));
 
-function PicturesList({ images, picturesManager, posY } : { images: Photo[], picturesManager : ReturnType<typeof usePicturesManager>, posY: number }) {
+function PicturesList({ images, picturesManager, posY, isOnCategoryPage } : { images: Photo[], picturesManager : ReturnType<typeof usePicturesManager>, posY: number, isOnCategoryPage?: boolean }) {
+  let [searchQuery] = useState(capitializeFirstLetter(useParams().query || ''))
   const [columnsNumber, setColumnsNumber] = useState(window.innerWidth < 768 ? 2 : 3);
 
-  const POS_Y_OF_ACTUAL_LIST_INSIDE_OF_COMPONENT = 40;
+  const POS_Y_OF_ACTUAL_LIST_INSIDE_OF_COMPONENT = isOnCategoryPage ? 150 : 40;
   let listPosY = posY + POS_Y_OF_ACTUAL_LIST_INSIDE_OF_COMPONENT;
 
   useEffect(() => {
@@ -132,14 +134,23 @@ function PicturesList({ images, picturesManager, posY } : { images: Photo[], pic
 
   return (
     <div className="PictureList mx-auto p-4 md:p-8 max-w-[1280px] 2xl:px-8 2xl:max-w-[1460px]">
-      <div className="flex flex-col md:flex-row h-10 w-full justify-between">
+      <div className="flex flex-col md:flex-row min-h-10 w-full justify-between items-start md:items-center">
+      { isOnCategoryPage ?
+        <h1 className="text-[3rem] h-full flex items-center">Фото {searchQuery}</h1>
+        :
         <h1 className="text-2xl h-full flex items-center">Бесплатные стоковые фото</h1>
+      }
         <p className="whitespace-nowrap h-full flex items-center text-xs">All photos are provided by&nbsp;
           <a href="https://www.pexels.com" className="text-[#07a081]" target="_blank" rel="noreferrer">
             Pexels
           </a>
         </p>
       </div>
+      { isOnCategoryPage && (
+        <div>
+
+        </div>
+      )}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 mt-4">
         {columnsOfImagesElems}
       </div>
@@ -150,6 +161,11 @@ function PicturesList({ images, picturesManager, posY } : { images: Photo[], pic
       )}
     </div>
   );
+}
+
+function capitializeFirstLetter(str : string) {
+  if (!str) return '';
+  return str[0].toUpperCase() + str.slice(1);
 }
 
 export default PicturesList;

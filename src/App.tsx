@@ -35,13 +35,13 @@ function App() {
             <div>
               <link rel="preload" href={`${randomNatureImage?.src.original}?auto=compress&cs=tinysrgb&w=60`} as="image" />
               <Header onSearch={onSearch} randomNatureImage={randomNatureImage}/>
-              <PicturesList images={picturesManager.images} picturesManager={picturesManager} posY={500 /* because Header is 500px tall */} />
+              <PicturesList images={picturesManager.images} picturesManager={picturesManager} posY={500 /* because Header is 500px tall; it is for better scroll */} />
             </div>
           } />
           <Route path="search/:query" element={
             <div>
               <NavBar onSearch={onSearch} forceMinimize/>
-              <PicturesList images={picturesManager.images} picturesManager={picturesManager} posY={200} />
+              <PicturesList images={picturesManager.images} picturesManager={picturesManager} posY={120} isOnCategoryPage />
             </div>
           } />
         </Route>
