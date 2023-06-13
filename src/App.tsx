@@ -28,6 +28,9 @@ function App() {
     }
     setLastQuery(query)
     picturesManager.searchNextPage(query + (resetFilters ? '' : lastFilters))
+    
+    // scroll to top
+    window.scrollTo(0, 0)
   }
 
   function onFiltersChanged(filters : string) {
