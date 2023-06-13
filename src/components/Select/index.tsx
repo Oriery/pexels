@@ -5,6 +5,7 @@ import correct from './correct.png'
 function Select({ options, startValue, onChange } : { options: string[], startValue: string, onChange: (value : string) => void }) {
   let [value, setValue] = useState(startValue)
   let [isExpanded, setIsExpanded] = useState(false)
+  let [id, setId] = useState('')
 
   function selectValue(val : string) {
     setValue(val)
@@ -13,10 +14,13 @@ function Select({ options, startValue, onChange } : { options: string[], startVa
   }
 
   useEffect(() => {
+    let tempId = (Math.random() * 1000000 + 100000).toString().substring(0, 6)
+    setId(tempId)
+
     function handleDocumentClick(event: MouseEvent) {
       const target = event.target as Element;
       // Make sure the click event was outside the dropdown
-      if (target && !target.closest(".dropdown")) {
+      if (target && !target.closest(".dropdown-" + tempId)) {
         setIsExpanded(false);
       }
     }
@@ -28,7 +32,7 @@ function Select({ options, startValue, onChange } : { options: string[], startVa
     
 
   return (
-    <div className="dropdown w-full h-full relative">
+    <div className={"w-full h-full relative" + ' dropdown-' + id}>
       <div className={"w-full px-4 py-2 md:py-4 bg-gray-100 text-black focus:outline focus:outline-0 items-center flex flex-row justify-between rounded-lg font-semibold cursor-pointer hover:bg-gray-300 duration-200"
        + (value === startValue ? '' : ' bg-gray-200')} 
         onClick={() => setIsExpanded(!isExpanded)} 
