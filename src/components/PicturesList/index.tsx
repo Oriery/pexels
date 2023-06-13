@@ -5,10 +5,17 @@ import loadingIcon from './loading.svg';
 import usePicturesManager from "../../managers/picturesManager";
 import { debounce } from "advanced-throttle-debounce";
 import { useParams } from 'react-router-dom'
+import Filters from "../Filters";
 
 const minHeightsOfMocks = Array.from({ length: 11 }, () => Math.round(200 + Math.random() * 200));
 
-function PicturesList({ images, picturesManager, posY, isOnCategoryPage } : { images: Photo[], picturesManager : ReturnType<typeof usePicturesManager>, posY: number, isOnCategoryPage?: boolean }) {
+function PicturesList({ images, picturesManager, onFiltersChanged, posY, isOnCategoryPage } : { 
+    images: Photo[], 
+    picturesManager : ReturnType<typeof usePicturesManager>, 
+    onFiltersChanged? : (filters: string) => void, 
+    posY: number, 
+    isOnCategoryPage?: boolean 
+  }) {
   let [searchQuery] = useState(capitializeFirstLetter(useParams().query || ''))
   const [columnsNumber, setColumnsNumber] = useState(window.innerWidth < 768 ? 2 : 3);
 
@@ -148,7 +155,7 @@ function PicturesList({ images, picturesManager, posY, isOnCategoryPage } : { im
       </div>
       { isOnCategoryPage && (
         <div>
-
+          <Filters onFiltersChanged={onFiltersChanged}/>
         </div>
       )}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 mt-4">
