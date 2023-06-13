@@ -103,7 +103,7 @@ function PicturesList({ images, picturesManager, onFiltersChanged, posY, isOnCat
       ), 
       picture: image
     };
-  }) : Array.from({ length: window.innerHeight / 300 }, (_, index) => {
+  }) : Array.from({ length: window.innerHeight / 300 * columnsNumber }, (_, index) => {
     return {
       el: (
         <Picture key={-index} isMock={true} mockMinHeight={minHeightsOfMocks[index % minHeightsOfMocks.length]}/>
