@@ -29,12 +29,16 @@ function Header({onSearch, randomNatureImage } : {onSearch: (searchQuery: string
           <p className='text-gray-300'>Тенденции:</p>
           { trends.map((trend, i) => {
             trend = capitializeFirstLetter(trend)
-            return (<Link className='' to={'/search/' + trend} key={i}>{trend + (i < trends.length - 1 ? ',' : '')}</Link>)
+            return (
+              <Link className='hover:text-gray-300 duration-200' to={'/search/' + trend} key={i}>
+                {trend + (i < trends.length - 1 ? ',' : '')}
+              </Link>
+            )
           })}
         </div>
       </div>
-      <div className='flex flex-row-reverse mb-6 mr-10 opacity-50 text-sm z-20 w-full'>
-        <a href={randomNatureImage?.photographer_url} className='flex flex-row items-center' target='_blank' rel="noreferrer" >
+      <div className='flex flex-row-reverse mb-6 mr-10 text-sm z-20 w-full'>
+        <a href={randomNatureImage?.photographer_url} className='flex flex-row items-center opacity-50 hover:opacity-80 duration-200' target='_blank' rel="noreferrer" >
           <p>Автор фото —&nbsp;</p>
           <p className='font-bold'>{randomNatureImage?.photographer}</p>
         </a>

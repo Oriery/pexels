@@ -42,7 +42,7 @@ function Select({ options, startValue, onChange } : { options: string[], startVa
         display: isExpanded ? 'flex' : 'none',
       }}>
         {options.map((option, i) => (
-          <div key={i} className="w-full m-1 px-3 py-3 items-center flex flex-row justify-between rounded-lg hover:bg-gray-200 font-semibold" 
+          <div key={i} className="w-full m-1 px-3 py-3 items-center flex flex-row justify-between rounded-lg hover:bg-gray-300 font-semibold" 
             onClick={() => selectValue(option)} 
           >
             <p>{option}</p>

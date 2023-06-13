@@ -32,14 +32,14 @@ function NavBar({ onSearch, forceMinimize } : { onSearch: (query : string, going
       >
         <div className='mx-auto max-w-[1216px] 2xl:max-w-[1600px] w-full h-full flex flex-row space-x-4 justify-between'>
           <div className='flex flex-row h-full w-full items-center py-2'>
-            <Link to='/' className='hidden lg:flex flex-row flex-none h-full'>
+            <Link to='/' className='hidden lg:flex flex-row flex-none h-full hover:brightness-75 duration-200'>
               {
               !(headerIsOutOfView || forceMinimize) ? 
                 <img src={logo} className='h-full' alt='logo' /> :
                 <img src={logoBlack} className='h-full' alt='logo'/> 
               }
             </Link>
-            <Link to='/' className='flex lg:hidden flex-row flex-none h-full'>
+            <Link to='/' className='flex lg:hidden flex-row flex-none h-full hover:brightness-75 duration-200'>
               <img src={logoSmall} className='h-full' alt='logo' />
             </Link>
             { (headerIsOutOfView || forceMinimize) && (
@@ -48,18 +48,20 @@ function NavBar({ onSearch, forceMinimize } : { onSearch: (query : string, going
               </div>
             )}
           </div>
-          <div className='space-x-8 py-2 flex-none hidden lg:flex'>
-            <Link className='flex items-center' to='/'>Поиск фото</Link>
-            <Link className='flex items-center' to='/'>Лицензия</Link>
-            <Link className='flex items-center' to='/'>Загрузка</Link>
-            <Link className='flex items-center' to='/'>•••</Link>
-            <Link className={'flex items-center rounded-md px-4 text-black' + (headerIsOutOfView || forceMinimize ? ' bg-[#07a081] text-white' : ' bg-white')} to='/'>Регистрация</Link>
+          <div className='space-x-1 py-2 flex-none hidden lg:flex'>
+            {['Поиск фото', 'Лицензия', 'Загрузка', '•••'].map((item, index, arr) => (
+              <Link key={index} className={'flex py-2 px-4 items-center duration-200' + (headerIsOutOfView || forceMinimize ? ' hover:bg-gray-300 rounded-md' : ' hover:text-gray-300')} 
+                to='/'>{item}
+              </Link>
+            ))}
+            <div className='w-2'></div>
+            <Link className={'flex items-center rounded-md px-4 text-black hover:brightness-75 duration-200' + (headerIsOutOfView || forceMinimize ? ' bg-[#07a081] text-white' : ' bg-white')} to='/'>Регистрация</Link>
           </div>
-          <div className='flex flex-row h-full space-x-8 flex lg:hidden items-center'>
+          <div className='flex flex-row h-full space-x-4 flex lg:hidden items-center'>
             <div className='space-x-8 h-full py-2 flex-none flex'>
-              <Link className={'flex items-center rounded-md px-4 text-black' + (headerIsOutOfView || forceMinimize ? ' bg-[#07a081] text-white' : ' bg-white')} to='/'>Регистрация</Link>
+              <Link className={'flex items-center rounded-md px-4 text-black hover:brightness-75 duration-200' + (headerIsOutOfView || forceMinimize ? ' bg-[#07a081] text-white' : ' bg-white')} to='/'>Регистрация</Link>
             </div>
-            <Link className='flex items-center w-6 h-6'
+            <Link className={'flex items-center w-12 h-12 p-3 rounded-md duration-200' + (headerIsOutOfView || forceMinimize ? ' hover:bg-gray-300' : ' hover:opacity-75')}
               style={{
                 filter: headerIsOutOfView || forceMinimize ? 'invert(0)' : 'invert(1)',
               }}
