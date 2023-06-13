@@ -9,14 +9,14 @@ import Filters from "../Filters";
 
 const minHeightsOfMocks = Array.from({ length: 11 }, () => Math.round(200 + Math.random() * 200));
 
-function PicturesList({ images, picturesManager, onFiltersChanged, posY, isOnCategoryPage } : { 
+function PicturesList({ images, picturesManager, onFiltersChanged, posY, isOnCategoryPage, searchQuery } : { 
     images: Photo[], 
     picturesManager : ReturnType<typeof usePicturesManager>, 
     onFiltersChanged? : (filters: string) => void, 
     posY: number, 
-    isOnCategoryPage?: boolean 
+    isOnCategoryPage?: boolean,
+    searchQuery?: string
   }) {
-  let [searchQuery] = useState(capitializeFirstLetter(useParams().query || ''))
   const [columnsNumber, setColumnsNumber] = useState(window.innerWidth < 768 ? 2 : 3);
 
   const POS_Y_OF_ACTUAL_LIST_INSIDE_OF_COMPONENT = isOnCategoryPage ? 150 : 40;
@@ -142,7 +142,7 @@ function PicturesList({ images, picturesManager, onFiltersChanged, posY, isOnCat
   return (
     <div className="PictureList mx-auto p-4 md:p-8 max-w-[1280px] 2xl:px-8 2xl:max-w-[1460px]">
       <div className="flex flex-col md:flex-row min-h-10 w-full justify-between items-start md:items-center">
-      { isOnCategoryPage ?
+      { isOnCategoryPage && searchQuery ?
         <h1 className="text-[3rem] h-full flex items-center">Фото {searchQuery}</h1>
         :
         <h1 className="text-2xl h-full flex items-center">Бесплатные стоковые фото</h1>
@@ -168,11 +168,6 @@ function PicturesList({ images, picturesManager, onFiltersChanged, posY, isOnCat
       )}
     </div>
   );
-}
-
-function capitializeFirstLetter(str : string) {
-  if (!str) return '';
-  return str[0].toUpperCase() + str.slice(1);
 }
 
 export default PicturesList;

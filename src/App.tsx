@@ -22,6 +22,8 @@ function App() {
   }, [])
 
   function onSearch(query : string, goingToMainPage? : boolean) {
+    if (!query) return
+    query = capitializeFirstLetter(query)
     if (query === lastQuery) return
     if (goingToMainPage) {
       setLastFilters('')
@@ -58,13 +60,18 @@ function App() {
           <Route path="search/:query" element={
             <div>
               <NavBar onSearch={onSearch} forceMinimize/>
-              <PicturesList images={picturesManager.images} picturesManager={picturesManager} posY={120} isOnCategoryPage onFiltersChanged={onFiltersChanged} />
+              <PicturesList images={picturesManager.images} picturesManager={picturesManager} posY={120} isOnCategoryPage onFiltersChanged={onFiltersChanged} searchQuery={lastQuery} />
             </div>
           } />
         </Route>
       </Routes>
     </div>
   );
+}
+
+function capitializeFirstLetter(str : string) {
+  if (!str) return '';
+  return str[0].toUpperCase() + str.slice(1);
 }
 
 export default App;
