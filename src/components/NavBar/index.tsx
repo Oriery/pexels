@@ -22,6 +22,14 @@ function NavBar({ onSearch, forceMinimize } : { onSearch: (query : string, going
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+      left: 0
+    })
+  }
+
   return (
     <div className='w-full h-[120px]'>
       <nav className={'h-[80px] p-2 px-4 md:px-8 w-full transition ease-in-out delay-50 z-50' 
@@ -31,7 +39,7 @@ function NavBar({ onSearch, forceMinimize } : { onSearch: (query : string, going
         }}
       >
         <div className='mx-auto max-w-[1216px] 2xl:max-w-[1600px] w-full h-full flex flex-row space-x-4 justify-between'>
-          <div className='flex flex-row h-full w-full items-center py-2'>
+          <div className='flex flex-row h-full w-full items-center py-2' onClick={scrollToTop}>
             <Link to='/' className='hidden lg:flex flex-row flex-none h-full hover:brightness-75 duration-200'>
               {
               !(headerIsOutOfView || forceMinimize) ? 
