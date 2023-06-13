@@ -59,7 +59,7 @@ function App() {
               <PicturesList images={picturesManager.images} picturesManager={picturesManager} posY={500 /* because Header is 500px tall; it is for better scroll */} />
             </div>
           } />
-          <Route path="search/:query" element={
+          <Route path="search/:query?" element={
             <div>
               <NavBar onSearch={onSearch} forceMinimize/>
               <PicturesList images={picturesManager.images} picturesManager={picturesManager} posY={120} isOnCategoryPage onFiltersChanged={onFiltersChanged} searchQuery={lastQuery} />
