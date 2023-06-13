@@ -29,7 +29,7 @@ function Header({onSearch, randomNatureImage } : {onSearch: (searchQuery: string
           <p className='text-gray-300'>Тенденции:</p>
           { trends.map((trend, i) => {
             trend = capitializeFirstLetter(trend)
-            return (<Link className='' to={'/search/' + trend} key={i}>{trend}</Link>)
+            return (<Link className='' to={'/search/' + trend} key={i}>{trend + (i < trends.length - 1 ? ',' : '')}</Link>)
           })}
         </div>
       </div>
