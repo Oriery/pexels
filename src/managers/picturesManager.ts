@@ -23,8 +23,6 @@ const usePicturesManager = (autoSearchForInfiniteScroll : boolean = true) => {
 
         return newArr;
       });
-    } else {
-      setImages(photos);
     }
 
     prevQuery.current = query;
@@ -66,8 +64,14 @@ const usePicturesManager = (autoSearchForInfiniteScroll : boolean = true) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function clearImages() {
+    setImages([]);
+    prevQuery.current = '';
+  }
+
   return {
     images,
+    clearImages,
     searchNextPage,
     searchManager,
     isSearching,
