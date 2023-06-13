@@ -25,7 +25,7 @@ function Select({ options, startValue, onChange } : { options: string[], startVa
 
   return (
     <div className="w-full h-full relative">
-      <div className={"w-full px-4 py-2 md:py-4 bg-gray-100 text-black focus:outline focus:outline-0 items-center flex flex-row justify-between rounded-lg font-semibold"
+      <div className={"w-full px-4 py-2 md:py-4 bg-gray-100 text-black focus:outline focus:outline-0 items-center flex flex-row justify-between rounded-lg font-semibold cursor-pointer hover:bg-gray-300 duration-200"
        + (value === startValue ? '' : ' bg-gray-200')} 
         onClick={() => setIsExpanded(true)} 
       >
@@ -42,7 +42,7 @@ function Select({ options, startValue, onChange } : { options: string[], startVa
         display: isExpanded ? 'flex' : 'none',
       }}>
         {options.map((option, i) => (
-          <div key={i} className="w-full m-1 px-3 py-3 items-center flex flex-row justify-between rounded-lg hover:bg-gray-300 font-semibold" 
+          <div key={i} className="w-full m-1 px-3 py-3 items-center flex flex-row justify-between rounded-lg cursor-pointer hover:bg-gray-300 duration-200 font-semibold" 
             onClick={() => selectValue(option)} 
           >
             <p>{option}</p>
