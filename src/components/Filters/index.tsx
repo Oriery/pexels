@@ -37,7 +37,7 @@ const Filters: React.FC<FiltersProps> = ({ onFiltersChanged }) => {
   }
 
   return (
-    <div className="mt-4 flex flex-col lg:flex-row justify-stretch w-full space-y-4 lg:space-y-0 lg:space-x-8 items-center">
+    <div className="mt-4 mb-4 lg:mb-8 flex flex-col lg:flex-row justify-stretch w-full space-y-4 lg:space-y-0 lg:space-x-8 items-center">
       <Select options={orientationOptions} startValue={orientationOptions[0]} onChange={val => updateFilters({orientationParam: orientationMap[val]})} />
       <Select options={sizeOptions} startValue={sizeOptions[0]} onChange={val => updateFilters({sizeParam: sizeMap[val]})} />
       <Select options={['Все цвета', 'цвет', 'цвет', 'цвет']} startValue="Все цвета" onChange={val => console.log(val)} />
