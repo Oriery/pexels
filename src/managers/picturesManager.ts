@@ -49,7 +49,7 @@ const usePicturesManager = (autoSearchForInfiniteScroll : boolean = true) => {
     if (!autoSearchForInfiniteScroll) return;
 
     const handleScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1500) {
         searchNextPage(prevQuery.current);
       }
     };
