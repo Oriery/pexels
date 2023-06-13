@@ -7,6 +7,7 @@ const usePicturesManager = (autoSearchForInfiniteScroll : boolean = true) => {
   const prevQuery = useRef<string>('');
   const searchManager = useRef(new SearchManager());
   let [isSearching, setIsSearching] = useState<boolean>(false);
+  let [nothingFound, setNothingFound] = useState<boolean>(false);
 
   const addImages = (photos: Photo[], query: string) => {
     if (prevQuery.current === query) {
@@ -23,6 +24,8 @@ const usePicturesManager = (autoSearchForInfiniteScroll : boolean = true) => {
 
         return newArr;
       });
+    } else {
+      setImages(photos);
     }
 
     prevQuery.current = query;
@@ -35,11 +38,14 @@ const usePicturesManager = (autoSearchForInfiniteScroll : boolean = true) => {
     }
 
     setIsSearching(true);
+    setNothingFound(false);
     searchManager.current.searchNextPage(query, startFromRandomPage).then((photos: Photo[]) => {
       addImages(photos, query);
       if (!searchManager.current.isSearching) {
         setIsSearching(false);
       }
+
+      setNothingFound(photos.length === 0);
     });
   };
 
@@ -67,6 +73,7 @@ const usePicturesManager = (autoSearchForInfiniteScroll : boolean = true) => {
   function clearImages() {
     setImages([]);
     prevQuery.current = '';
+    setNothingFound(false);
   }
 
   return {
@@ -75,6 +82,7 @@ const usePicturesManager = (autoSearchForInfiniteScroll : boolean = true) => {
     searchNextPage,
     searchManager,
     isSearching,
+    nothingFound
   };
 };
 

@@ -159,9 +159,15 @@ function PicturesList({ images, picturesManager, onFiltersChanged, posY, isOnCat
           <Filters onFiltersChanged={onFiltersChanged}/>
         </div>
       )}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 mt-4">
-        {columnsOfImagesElems}
-      </div>
+      { images.length === 0 && picturesManager.nothingFound ?
+        <div className="flex flex-col items-center justify-center mt-8">
+          <p className="text-2xl">Ничего не найдено</p>
+        </div>
+        :
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 mt-4">
+          {columnsOfImagesElems}
+        </div>
+      }
       {picturesManager.isSearching && (
         <div className="flex flex-col items-center justify-center mt-8">
           <img src={loadingIcon} alt="loading" />
