@@ -15,7 +15,7 @@ function App() {
   let [lastFilters, setLastFilters] = useState('' as string)
 
   useEffect(() => {
-    picturesManager.searchManager.current.getRandomPhotoOfCategory('nature&orientation=landscape').then((photo) => {
+    picturesManager.searchManager.current.getRandomPhotoOfCategory('nature&orientation=landscape&size=large').then((photo) => {
       setRandomNatureImage(photo)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
