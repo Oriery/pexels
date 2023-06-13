@@ -2,7 +2,7 @@ import search from './search.svg'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
-function SearchBar({ onSearch } : { onSearch: (query : string) => void }) {
+function SearchBar({ onSearch } : { onSearch: (query : string, resetFilters? : boolean) => void }) {
   let [searchQuery, setSearchQuery] = useState(useParams().query || '')
   let navigate = useNavigate()
 
@@ -14,7 +14,7 @@ function SearchBar({ onSearch } : { onSearch: (query : string) => void }) {
   }
 
   useEffect(() => {
-    onSearch(searchQuery || 'people')
+    onSearch(searchQuery || 'people', true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

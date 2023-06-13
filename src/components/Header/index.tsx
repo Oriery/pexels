@@ -7,7 +7,7 @@ import './Header.css'
 
 const SIZES = [240, 360, 480, 720, 1080, 1600, 2400, 3840];
 
-function Header({onSearch, randomNatureImage } : {onSearch: (searchQuery: string) => void, randomNatureImage: Photo | null }) {
+function Header({onSearch, randomNatureImage } : {onSearch: (searchQuery: string, resetFilters? : boolean) => void, randomNatureImage: Photo | null }) {
   let [bgIsLoaded, setBgIsLoaded] = useState(false)
 
   return (

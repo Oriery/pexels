@@ -21,10 +21,13 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  function onSearch(query : string) {
+  function onSearch(query : string, resetFilters? : boolean) {
     if (query === lastQuery) return
+    if (resetFilters) {
+      setLastFilters('')
+    }
     setLastQuery(query)
-    picturesManager.searchNextPage(query + lastFilters)
+    picturesManager.searchNextPage(query + (resetFilters ? '' : lastFilters))
   }
 
   function onFiltersChanged(filters : string) {
