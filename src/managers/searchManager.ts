@@ -11,7 +11,7 @@ const searchAtPexels = debounce(client.photos.search, {
   trailing: false
 });
 
-const PER_PAGE = 10;
+const PER_PAGE = 20;
 
 class SearchManager {
   private lastPage: number;
