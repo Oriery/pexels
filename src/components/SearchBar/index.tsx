@@ -2,7 +2,7 @@ import search from './search.svg'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
-function SearchBar({ onSearch } : { onSearch: (query : string, resetFilters? : boolean) => void }) {
+function SearchBar({ onSearch } : { onSearch: (query : string, goingToMainPage? : boolean) => void }) {
   let [searchQuery, setSearchQuery] = useState(useParams().query || '')
   let navigate = useNavigate()
 

@@ -6,7 +6,7 @@ import SearchBar from '../SearchBar';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react'
 
-function NavBar({ onSearch, forceMinimize } : { onSearch: (query : string, resetFilters? : boolean) => void, forceMinimize?: boolean }) {
+function NavBar({ onSearch, forceMinimize } : { onSearch: (query : string, goingToMainPage? : boolean) => void, forceMinimize?: boolean }) {
   let [headerIsOutOfView, setHeaderIsOutOfView] = useState(false)
 
   useEffect(() => {
