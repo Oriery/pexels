@@ -31,8 +31,8 @@ function NavBar({ onSearch, forceMinimize } : { onSearch: (query : string, going
   }
 
   return (
-    <div className='w-full h-[80px]'>
-      <nav className={'h-[80px] p-2 px-4 md:px-8 w-full transition ease-in-out delay-50 z-50' 
+    <div className={'w-full' + (headerIsOutOfView || forceMinimize ? ' h-[160px] sm:h-[80px]' : ' h-[80px]')}>
+      <nav className={(headerIsOutOfView || forceMinimize ? 'h-[160px] sm:h-[80px] ' : 'h-[80px] ') + 'p-2 px-4 md:px-8 w-full transition ease-in-out delay-50 z-50 flex flex-col'
         + (headerIsOutOfView || forceMinimize ? ' fixed bg-white text-black' : '')}
         style={{
           boxShadow: headerIsOutOfView || forceMinimize ? '0 1px 0 #f7f7f7' : 'none',
@@ -40,18 +40,18 @@ function NavBar({ onSearch, forceMinimize } : { onSearch: (query : string, going
       >
         <div className='mx-auto max-w-[1216px] 2xl:max-w-[1600px] w-full h-full flex flex-row space-x-4 justify-between'>
           <div className='flex flex-row h-full w-full items-center py-2' onClick={scrollToTop}>
-            <Link to='/' className='hidden lg:flex flex-row flex-none h-full hover:brightness-75 duration-200'>
+            <Link to='/' className={(headerIsOutOfView || forceMinimize ? 'hidden xs:flex sm:hidden lg:flex ' : 'hidden sm:flex ') + 'flex-row flex-none h-full hover:brightness-75 duration-200'}>
               {
               !(headerIsOutOfView || forceMinimize) ? 
                 <img src={logo} className='h-full' alt='logo' /> :
                 <img src={logoBlack} className='h-full' alt='logo'/> 
               }
             </Link>
-            <Link to='/' className='flex lg:hidden flex-row flex-none h-full hover:brightness-75 duration-200'>
+            <Link to='/' className={(headerIsOutOfView || forceMinimize ? 'flex xs:hidden sm:flex lg:hidden ' : 'flex sm:hidden ') + 'flex-row flex-none h-full hover:brightness-75 duration-200'}>
               <img src={logoSmall} className='h-full' alt='logo' />
             </Link>
             { (headerIsOutOfView || forceMinimize) && (
-              <div className='flex items-center w-full xl:max-w-[420px] ml-4 h-full'>
+              <div className='hidden sm:flex items-center w-full xl:max-w-[420px] ml-4 h-full'>
                 <SearchBar onSearch={onSearch} />
               </div>
             )}
@@ -79,6 +79,13 @@ function NavBar({ onSearch, forceMinimize } : { onSearch: (query : string, going
             </Link>
           </div>
         </div>
+        { (headerIsOutOfView || forceMinimize) && (
+          <div className='mx-auto max-w-[1216px] 2xl:max-w-[1600px] w-full h-full flex flex-row space-x-4 justify-between'>
+            <div className='flex sm:hidden items-center w-full xl:max-w-[420px] h-full py-2'>
+              <SearchBar onSearch={onSearch} />
+            </div>
+          </div>
+        )}
       </nav>
     </div>
   )
