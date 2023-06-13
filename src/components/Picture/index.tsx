@@ -13,6 +13,7 @@ interface PictureProps {
   numberOfColumns?: number;
   isMock?: boolean;
   mockMinHeight?: number;
+  seqNumber: number;
 }
 
 interface PictureState {
@@ -68,7 +69,7 @@ class Picture extends Component<PictureProps, PictureState> {
     const SIZES = [50, 120, 240, 300, 500, 720, 1080];
 
     return (
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden" tabIndex={1000 + this.props.seqNumber}>
         <link rel="preload" href={image ? `${image.src.original}?auto=compress&cs=tinysrgb&w=20` : undefined} as="image" onLoad={() => this.setState({isSmallImgLoaded: true})} />
         <div className={'blurred-bg' + (isLoaded ? ' loaded' : '')} style={{
           backgroundImage: !this.props.isMock ? `url(${image!.src.original}?auto=compress&cs=tinysrgb&w=20)` : undefined,

@@ -39,8 +39,12 @@ function SearchBar({ onSearch } : { onSearch: (query : string, goingToMainPage? 
         value={searchQuery} 
         onChange={(e) => setSearchQuery(e.target.value)} 
         ref={inputRef}
+        tabIndex={50}
       />
-      <button type="submit" className="flex flex-row place-content-center place-items-center p-2 m-1 h-10 aspect-square hover:scale-110 duration-100">
+      <button type="submit" 
+        className="flex flex-row place-content-center place-items-center p-2 m-1 h-10 aspect-square hover:scale-110 duration-100"
+        tabIndex={50}
+      >
         <img src={search} alt='search' />
       </button>
     </form>

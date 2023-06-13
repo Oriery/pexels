@@ -98,14 +98,14 @@ function PicturesList({ images, picturesManager, onFiltersChanged, posY, isOnCat
   const imagesElems : ImageWithEl[] = images.length ? images.map((image, index) => {
     return {
       el: (
-        <Picture image={image} key={image.id} numberOfColumns={columnsNumber} mockMinHeight={minHeightsOfMocks[index % minHeightsOfMocks.length]} />
+        <Picture image={image} seqNumber={index} key={image.id} numberOfColumns={columnsNumber} mockMinHeight={minHeightsOfMocks[index % minHeightsOfMocks.length]} />
       ), 
       picture: image
     };
   }) : Array.from({ length: window.innerHeight / 300 * columnsNumber }, (_, index) => {
     return {
       el: (
-        <Picture key={-index} isMock={true} mockMinHeight={minHeightsOfMocks[index % minHeightsOfMocks.length]}/>
+        <Picture key={-index} seqNumber={index} isMock={true} mockMinHeight={minHeightsOfMocks[index % minHeightsOfMocks.length]}/>
       ), 
       picture: null
     };
@@ -148,7 +148,9 @@ function PicturesList({ images, picturesManager, onFiltersChanged, posY, isOnCat
       }
         <p className="whitespace-nowrap h-full flex items-center text-xs">All photos are provided by&nbsp;
           <a href="https://www.pexels.com" className="text-[#07a081] hover:brightness-75 duration-200" target="_blank" rel="noreferrer">
-            Pexels
+            <div tabIndex={100}>
+              Pexels
+            </div>
           </a>
         </p>
       </div>

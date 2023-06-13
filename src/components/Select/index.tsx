@@ -24,18 +24,40 @@ function Select({ options, startValue, onChange } : { options: string[], startVa
         setIsExpanded(false);
       }
     }
+
+    function handleDocumentKeydown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsExpanded(false);
+      }
+
+      const target = event.target as Element;
+
+      if (event.key === "Enter" && target && !target.closest(".dropdown-" + tempId)) {
+        setIsExpanded(false);
+      }
+    }
   
     document.addEventListener("click", handleDocumentClick);
-    return () => document.removeEventListener("click", handleDocumentClick);
+    document.addEventListener("keydown", handleDocumentKeydown);
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+      document.removeEventListener("keydown", handleDocumentKeydown);
+    };
   }, []);  
 
     
 
   return (
     <div className={'w-full h-full relative dropdown-' + id}>
-      <div className={"w-full px-4 py-2 md:py-4 bg-gray-100 text-black focus:outline focus:outline-0 items-center flex flex-row justify-between rounded-lg font-semibold cursor-pointer hover:bg-gray-300 duration-200"
+      <div className={"w-full px-4 py-2 md:py-4 bg-gray-100 text-black items-center flex flex-row justify-between rounded-lg font-semibold cursor-pointer hover:bg-gray-300 duration-200"
        + (value === startValue ? '' : ' bg-gray-200')} 
-        onClick={() => setIsExpanded(!isExpanded)} 
+        onClick={() => setIsExpanded(!isExpanded)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            setIsExpanded(!isExpanded)
+          }
+        }}
+        tabIndex={120}
       >
         <p>{value}</p>
         <img src={arrowRight} alt={isExpanded ? 'expanded' : 'collapsed'} className='w-4 h-4' style={{
@@ -53,6 +75,12 @@ function Select({ options, startValue, onChange } : { options: string[], startVa
           <div className='w-full m-1'>
             <div key={i} className="w-full px-3 py-3 items-center flex flex-row justify-between rounded-lg cursor-pointer hover:bg-gray-300 duration-200 font-semibold" 
               onClick={() => selectValue(option)} 
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  selectValue(option)
+                }
+              }}
+              tabIndex={120}
             >
               <p>{option}</p>
               {option === value && 

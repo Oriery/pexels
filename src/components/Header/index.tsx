@@ -31,7 +31,9 @@ function Header({onSearch, randomNatureImage } : {onSearch: (searchQuery: string
             trend = capitializeFirstLetter(trend)
             return (
               <Link className='hover:text-gray-300 duration-200' to={'/search/' + trend} key={i}>
-                {trend + (i < trends.length - 1 ? ',' : '')}
+                <div tabIndex={50}>
+                  {trend + (i < trends.length - 1 ? ',' : '')}
+                </div>
               </Link>
             )
           })}
