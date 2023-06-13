@@ -13,21 +13,25 @@ function Select({ options, startValue, onChange } : { options: string[], startVa
   }
 
   useEffect(() => {
-    function handleDocumentClick() {
-      setIsExpanded(false)
+    function handleDocumentClick(event: MouseEvent) {
+      const target = event.target as Element;
+      // Make sure the click event was outside the dropdown
+      if (target && !target.closest(".dropdown")) {
+        setIsExpanded(false);
+      }
     }
-
-    document.addEventListener('click', handleDocumentClick, true)
-    return () => document.removeEventListener('click', handleDocumentClick)
-  }, [])
+  
+    document.addEventListener("click", handleDocumentClick);
+    return () => document.removeEventListener("click", handleDocumentClick);
+  }, []);  
 
     
 
   return (
-    <div className="w-full h-full relative">
+    <div className="dropdown w-full h-full relative">
       <div className={"w-full px-4 py-2 md:py-4 bg-gray-100 text-black focus:outline focus:outline-0 items-center flex flex-row justify-between rounded-lg font-semibold cursor-pointer hover:bg-gray-300 duration-200"
        + (value === startValue ? '' : ' bg-gray-200')} 
-        onClick={() => setIsExpanded(true)} 
+        onClick={() => setIsExpanded(!isExpanded)} 
       >
         <p>{value}</p>
         <img src={arrowRight} alt={isExpanded ? 'expanded' : 'collapsed'} className='w-4 h-4' style={{
