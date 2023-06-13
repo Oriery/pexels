@@ -37,7 +37,7 @@ function Select({ options, startValue, onChange } : { options: string[], startVa
       <div className="absolute p-1 w-full bg-gray-100 text-black items-center flex flex-col justify-between rounded-lg" style={{
         top: '120%',
         left: 0,
-        zIndex: 100,
+        zIndex: 20,
         boxShadow: '0 1px 2px rgba(0,0,0,0.2)',
         display: isExpanded ? 'flex' : 'none',
       }}>
