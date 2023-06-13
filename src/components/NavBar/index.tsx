@@ -31,7 +31,7 @@ function NavBar({ onSearch, forceMinimize } : { onSearch: (query : string, going
   }
 
   return (
-    <div className='w-full h-[120px]'>
+    <div className='w-full h-[80px]'>
       <nav className={'h-[80px] p-2 px-4 md:px-8 w-full transition ease-in-out delay-50 z-50' 
         + (headerIsOutOfView || forceMinimize ? ' fixed bg-white text-black' : '')}
         style={{
