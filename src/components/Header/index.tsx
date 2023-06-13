@@ -1,14 +1,20 @@
 import SearchBar from '../SearchBar';
 import NavBar from '../NavBar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Photo } from 'pexels';
 import { Link } from 'react-router-dom';
 import './Header.css'
+import { getNTrends } from '../../managers/trendsManager';
 
 const SIZES = [240, 360, 480, 720, 1080, 1600, 2400, 3840];
 
 function Header({onSearch, randomNatureImage } : {onSearch: (searchQuery: string, goingToMainPage? : boolean) => void, randomNatureImage: Photo | null }) {
   let [bgIsLoaded, setBgIsLoaded] = useState(false)
+  let [trends, setTrends] = useState([] as string[])
+
+  useEffect(() => {
+    setTrends(getNTrends(7));
+  }, [])
 
   return (
     <header className='App-header min-h-[500px] flex flex-col items-center text-white relative overflow-hidden'>
@@ -21,10 +27,10 @@ function Header({onSearch, randomNatureImage } : {onSearch: (searchQuery: string
         </div>
         <div className='flex flex-row space-x-2 mt-6 w-full'>
           <p className='text-gray-300'>Тенденции:</p>
-          <Link className='' to='/'>Природа</Link>,
-          <Link className='' to='/'>Путешествия</Link>,
-          <Link className='' to='/'>Архитектура</Link>,
-          <Link className='' to='/'>Культура</Link>
+          { trends.map((trend, i) => {
+            trend = capitializeFirstLetter(trend)
+            return (<Link className='' to={'/search/' + trend} key={i}>{trend}</Link>)
+          })}
         </div>
       </div>
       <div className='flex flex-row-reverse mb-6 mr-10 opacity-50 text-sm z-20 w-full'>
@@ -59,3 +65,8 @@ function Header({onSearch, randomNatureImage } : {onSearch: (searchQuery: string
 }
 
 export default Header
+
+function capitializeFirstLetter(str : string) {
+  if (!str) return '';
+  return str[0].toUpperCase() + str.slice(1);
+}

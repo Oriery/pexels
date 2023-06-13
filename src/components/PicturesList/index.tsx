@@ -4,7 +4,6 @@ import { Photo } from 'pexels';
 import loadingIcon from './loading.svg';
 import usePicturesManager from "../../managers/picturesManager";
 import { debounce } from "advanced-throttle-debounce";
-import { useParams } from 'react-router-dom'
 import Filters from "../Filters";
 
 const minHeightsOfMocks = Array.from({ length: 11 }, () => Math.round(200 + Math.random() * 200));

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Select from "../Select";
 
 const orientationOptions = ['Все варианты ориентации', 'Горизонтальная', 'Вертикальная', 'Квадратная'];

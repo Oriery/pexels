@@ -30,7 +30,7 @@ function App() {
     }
     setLastQuery(query)
     picturesManager.clearImages()
-    picturesManager.searchNextPage(query + (goingToMainPage ? '' : lastFilters), goingToMainPage)
+    picturesManager.searchNextPage(query + (goingToMainPage ? '' : lastFilters))
 
     // scroll to top
     window.scrollTo(0, 0)
